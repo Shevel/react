@@ -1,0 +1,41 @@
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.users {
+  padding: 15px;
+}
+.user {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #ffffff70;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+.user_info {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.user_avaBlock {
+  flex-basis: 15%;
+}
+.location {
+  text-align: right;
+}
+.person,
+.location {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.follow {
+  border-color: lawngreen;
+  outline: none;
+}
+.unfollow {
+  outline: none;
+  border-color: coral;
+}
