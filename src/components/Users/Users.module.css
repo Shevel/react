@@ -39,3 +39,19 @@
   outline: none;
   border-color: coral;
 }
+.selected {
+  font-weight: bold;
+}
+.pages {
+  display: flex;
+}
+.name {
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+.status {
+  font-size: 15px;
+  color: #7c7c7c;
+  font-style: italic;
+}

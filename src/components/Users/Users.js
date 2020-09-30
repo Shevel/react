@@ -1,16 +1,27 @@
 import React from 'react';
 import styles from './Users.module.css';
-import * as axios from 'axios';
 import noavatar from '../../assets/image/noavatar.jpg';
+
+
 export const Users = (props) => {
-  if (props.users.length === 0) {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-      props.setUsers(response.data.items);
-      console.log(response.data)
-    })
-  }
+
+  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  const pages = [...Array(pagesCount).keys()].map((i) => i = i + 1);
+
   return (
     <div className={styles.users}>
+      <div className={styles.pages}>
+        {
+          pages.map(page =>
+            <p
+              key={page}
+              className={props.currentPage === page ? styles.selected : null}
+              onClick={() => { props.onPageChanged(page) }}
+            >
+              {page}
+            </p>)
+        }
+      </div>
       {
         props.users.map((user) => {
           return (
@@ -29,12 +40,12 @@ export const Users = (props) => {
               </span>
               <span className={styles.user_info}>
                 <span className={styles.person}>
-                  <div>{user.name}</div>
-                  <div>{user.status}</div>
+                  <div className={styles.name}>{user.name}</div>
+                  <div className={styles.status}>{user.status}</div>
                 </span>
                 <span className={styles.location}>
-                  <div>{'user.location.city'}</div>
-                  <div>{'user.location.country'}</div>
+                  <div>{'Default_City'}</div>
+                  <div>{'Default_Country'}</div>
                 </span>
               </span>
             </div>

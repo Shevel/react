@@ -1,5 +1,5 @@
 .nav {
-  flex-basis: 19%;
+  flex-basis: 20%;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -18,8 +18,10 @@ a {
   transition: all 0.2s;
 }
 a.active {
-  color: #FFFFFF;
-  text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+  color: #ffffff;
+  text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5,
+    -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5,
+    -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
 }
 .item {
   padding: 5px;

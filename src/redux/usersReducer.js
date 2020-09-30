@@ -1,43 +1,16 @@
 const SET_USERS = 'SET_USERS';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT';
 
 const initialState = {
-  users: [
-    //   {
-    //     id: 1,
-    //     avatarImage: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg',
-    //     name: 'Dmitry',
-    //     status: 'I am a boss',
-    //     followed: true,
-    //     location: {
-    //       city: 'Minsk',
-    //       country: 'Belarus',
-    //     }
-    //   },
-    //   {
-    //     id: 2,
-    //     avatarImage: 'https://cs7.pikabu.ru/post_img/big/2019/08/23/5/1566544814170395336.png',
-    //     name: 'Lena',
-    //     status: 'I like watch movies!!!',
-    //     followed: false,
-    //     location: {
-    //       city: 'Okolica',
-    //       country: 'Belarus',
-    //     }
-    //   },
-    //   {
-    //     id: 3,
-    //     avatarImage: 'https://www.esquireme.com/public/styles/600px_600px_square/public/images/2019/09/30/darth-vader-helmet.jpg?itok=yK61eOnV',
-    //     name: 'Darth Vader',
-    //     status: 'Welcome to the Dark Side! Ha-ha-ha',
-    //     followed: true,
-    //     location: {
-    //       city: 'Star Killer',
-    //       country: 'Far-far Galaxy',
-    //     }
-    //   },
-  ]
+  users: [],
+  totalUsersCount: 50,
+  pageSize: 7,
+  currentPage: 1,
+  isFetching: false,
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -69,24 +42,51 @@ export const usersReducer = (state = initialState, action) => {
           return user;
         })
       }
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      }
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      }
     case SET_USERS:
       return {
         ...state,
-        users: [...state.users, ...action.users],
+        users: [...action.users],
+      }
+    case SET_USERS_TOTAL_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
       }
     default:
       return state;
   }
 }
 
-export const followActionCreator = (userID) => { // Utils
+export const follow = (userID) => { // Utils
   return { type: FOLLOW, userID }
 }
 
-export const unfollowActionCreator = (userID) => { // Utils
+export const unfollow = (userID) => { // Utils
   return { type: UNFOLLOW, userID }
 }
 
 export const setUsers = (users) => { // Utils
   return { type: SET_USERS, users }
+}
+
+export const setCurrentPage = (currentPage) => { // Utils
+  return { type: SET_CURRENT_PAGE, currentPage }
+}
+
+export const setUsersTotalCount = (totalUsersCount) => { // Utils
+  return { type: SET_USERS_TOTAL_COUNT, totalUsersCount }
+}
+
+export const toggleIsFetching = (isFetching) => { // Utils
+  return { type: TOGGLE_IS_FETCHING, isFetching }
 }
