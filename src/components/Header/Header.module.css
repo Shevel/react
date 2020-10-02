@@ -1,10 +1,32 @@
 .header {
   flex-basis: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
 }
 .logo {
   width: 70px;
+}
+.login {
+  margin-right: 15px;
+  transition: text-shadow 0.1s;
+}
+.login:hover {
+  text-shadow: 2px 2px 0 #40b540, 2px -2px 0 #40b540, -2px 2px 0 #40b540,
+    -2px -2px 0 #40b540, 2px 0px 0 #40b540, 0px 2px 0 #40b540,
+    -2px 0px 0 #40b540, 0px -2px 0 #40b540;
+}
+.login_info {
+  margin-right: 15px;
+}
+.login_name {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 5px 0;
+}
+.login_name,
+.login_email {
+  color: #fff;
+  text-align: right;
 }
