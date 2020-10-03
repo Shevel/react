@@ -41,11 +41,11 @@ export const profileReducer = (state = initialState, action) => {
   }
 }
 
-export const newPostActionCreator = () => { // Utils
+export const newPost = () => { // Utils
   return { type: ADD_POST }
 }
 
-export const updateTextPostActionCreator = (text) => { // Utils
+export const updateTextPost = (text) => { // Utils
   return { type: UPDATE_POST_TEXT, newText: text }
 }
 
