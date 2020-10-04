@@ -80,14 +80,15 @@ export const usersReducer = (state = initialState, action) => {
 export const getUsers = (currentPage, pageSize) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
-
     usersAPI.getUsers(currentPage, pageSize).then((data) => {
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(data.items));
-      // this.props.setUsersTotalCount(data.totalCount);
+      dispatch(setCurrentPage(currentPage));
+      // dispatch(setUsersTotalCount(data.totalCount));
     });
   };
 };
+
 export const follow = (userId) => {
   return (dispatch) => {
     dispatch(toggleIsFollowing(true, userId));
@@ -99,6 +100,7 @@ export const follow = (userId) => {
     });
   };
 };
+
 export const unfollow = (userId) => {
   return (dispatch) => {
     dispatch(toggleIsFollowing(true, userId));
@@ -110,6 +112,7 @@ export const unfollow = (userId) => {
     });
   };
 };
+
 export const followSuccess = (userID) => {
   // Utils
   return { type: FOLLOW, userID };

@@ -22,9 +22,9 @@ export const authReducer = (state = initialState, action) => {
   }
 };
 
-export const isAuthThunk = () => {
+export const getAuthUserData = () => {
   return (dispatch) => {
-    authAPI.isAuth().then((response) => {
+    authAPI.me().then((response) => {
       if (response.data.resultCode === 0) {
         let { id, email, login } = response.data.data;
         dispatch(setAuthUserData(id, email, login));

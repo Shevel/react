@@ -12,14 +12,16 @@ export const Users = (props) => {
     <div className={styles.users}>
       <div className={styles.pages}>
         {
-          pages.map(page =>
-            <p
-              key={page}
-              className={props.currentPage === page ? styles.selected : null}
-              onClick={() => { props.onPageChanged(page) }}
-            >
-              {page}
-            </p>)
+          pages.map(page => {
+            return (
+              <p
+                key={page}
+                className={props.currentPage === page ? `${styles.selected} ${styles.pagination_item}` : styles.pagination_item}
+                onClick={() => { props.onPageChanged(page) }}
+              >
+                {page}
+              </p>)
+          })
         }
       </div>
       {

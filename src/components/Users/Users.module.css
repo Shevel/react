@@ -39,11 +39,9 @@
   outline: none;
   border-color: coral;
 }
-.selected {
-  font-weight: bold;
-}
 .pages {
   display: flex;
+  margin: 5px 0;
 }
 .name {
   font-size: 20px;
@@ -54,4 +52,25 @@
   font-size: 15px;
   color: #7c7c7c;
   font-style: italic;
+}
+.pagination_item {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  background-color: #ede5bf;
+  border-radius: 50%;
+  line-height: 17px;
+  font-size: 13px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 1);
+  padding-left: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pagination_item.selected {
+  font-weight: bold;
+  background-color: #ffffffb9;
+}
+.pagination_item:hover {
+  box-shadow: 0px 0px 8px 2px #0761cf;
 }
