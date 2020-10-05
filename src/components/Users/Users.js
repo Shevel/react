@@ -4,6 +4,7 @@ import styles from './Users.module.css';
 import noavatar from '../../assets/image/noavatar.jpg';
 
 export const Users = (props) => {
+  console.log(props)
 
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   const pages = [...Array(pagesCount).keys()].map((i) => i = i + 1);
@@ -39,13 +40,13 @@ export const Users = (props) => {
                     user.followed
                       ? <button
                         disabled={props.followingInProgress.some(id => id === user.id)}
-                        className={styles.unfollow}
+                        className={`${styles.unfollow} ${styles.btn}`}
                         onClick={() => {
                           props.unfollow(user.id);
                         }}>UnFollow</button>
                       : <button
                         disabled={props.followingInProgress.some(id => id === user.id)}
-                        className={styles.follow}
+                        className={`${styles.follow} ${styles.btn}`}
                         onClick={() => {
                           props.follow(user.id);
                         }}>Follow</button>

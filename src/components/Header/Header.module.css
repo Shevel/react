@@ -1,10 +1,12 @@
 .header {
+  height: 80px;
   flex-basis: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(0.25turn, #f69d3c, #ebf8e1, #3f87a6);
   border-bottom: 10px solid #c4c4c4;
+  box-sizing: border-box;
 }
 .logo {
   width: 70px;
