@@ -1,8 +1,8 @@
 import React from 'react';
-import Img from '../profile.jpeg';
 import defaultAvatar from '../../../assets/image/noavatar.jpg';
 import s from '../Profile.module.css';
 import { Preloader } from '../../common/Preloader/Preloader';
+import { ProfileStatus } from '../ProfileStatus/ProfileStatus';
 
 export const ProfileInfo = ({ profile }) => {
   if (!profile) {
@@ -10,7 +10,6 @@ export const ProfileInfo = ({ profile }) => {
   }
   return (
     <div>
-      <img className={s.img} src={Img} alt='info' />
       <div className={s.profile}>
         {
           profile.photos.large ?
@@ -21,7 +20,8 @@ export const ProfileInfo = ({ profile }) => {
         }
         <div className={s.info}>
           <p className={s.avatar__name}>{profile.fullName}</p>
-          <p className={s.status}>{`"${profile.aboutMe}"`}</p>
+          <ProfileStatus status='Hello my Friends!' />
+          <p className={s.about}>{`"${profile.aboutMe}"`}</p>
           <input id='lookingForaJob' type='checkbox' readOnly checked={profile.lookingForAJob} />
           <label htmlFor='lookingForaJob'>Looking for a Job</label>
         </div>

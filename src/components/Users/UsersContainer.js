@@ -4,6 +4,7 @@ import { follow, unfollow, setCurrentPage, getUsers } from '../../redux/usersRed
 import { Users } from './Users';
 import { Preloader } from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 export class UsersContainer extends React.Component {
 
@@ -23,21 +24,12 @@ export class UsersContainer extends React.Component {
         }
         <Users
           {...this.props}
-          // totalUsersCount={this.props.totalUsersCount}
-          // pageSize={this.props.pageSize}
-          // currentPage={this.props.currentPage}
           onPageChanged={this.onPageChanged}
-        // users={this.props.users}
-        // follow={this.props.follow}
-        // unfollow={this.props.unfollow}
-        // followingInProgress={this.props.followingInProgress}
         />
       </>
     )
   }
 }
-
-const AuthRedirectComponent = withAuthRedirect(UsersContainer);
 
 const mapStateToProps = (state) => {
   return {
@@ -50,9 +42,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  getUsers,
-})(AuthRedirectComponent);
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setCurrentPage,
+    getUsers,
+  }),
+  withAuthRedirect
+)(UsersContainer)

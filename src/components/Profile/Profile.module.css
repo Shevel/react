@@ -28,10 +28,18 @@
   text-transform: capitalize;
   margin: 0 0 10px 0;
 }
-.status {
+.about {
   font-size: 12px;
   font-style: italic;
   font-weight: 400;
   color: #696969;
   margin: 0 0 10px 0;
+}
+.status {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.status:hover {
+  border-radius: 2px;
+  background-color: #f0f2f5;
 }
