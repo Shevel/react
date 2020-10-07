@@ -1,7 +1,8 @@
 import React from 'react';
-import s from './Dialogs.module.css';
+import styles from './Dialogs.module.css';
 import { Dialog } from './Dialog/Dialog';
 import { Message } from './Message/Message';
+import { Field, reduxForm } from 'redux-form';
 
 export const Dialogs = (props) => {
   const dialogs = props.dialogsPage.dialogsData;
@@ -20,24 +21,48 @@ export const Dialogs = (props) => {
     const messageText = e.target.value;
     props.enteringMessage(messageText);
   }
+  const onSubmitDialogs = (dialogData) => {
+    console.log(dialogData)
+  }
   return (
-    <div className={s.dialogs}>
-      <div className={s.dialogsItems}>
+    <div className={styles.dialogs}>
+      <div className={styles.dialogsItems}>
         {dialogsElements}
       </div>
-      <div className={s.messages}>
-        {messagesElements}
-      </div>
-      <div className={s.sendMessageBlock}>
-        <textarea
-          className={s.textarea}
-          type='text'
-          value={props.dialogsPage.textMessage}
-          placeholder='Enter message..'
-          onChange={onEnteringMessage}
+      <div className={styles.messages_content}>
+        <div className={styles.messages}>
+          {messagesElements}
+        </div>
+        <DialogForm
+          textMessage={props.dialogsPage.textMessage}
+          onEnteringMessage={onEnteringMessage}
+          createNewMessage={createNewMessage}
+          onSubmit={onSubmitDialogs}
         />
-        <button className={s.sendButton} onClick={createNewMessage}>Send Message</button>
       </div>
     </div>
   )
 }
+
+let DialogForm = (props) => {
+  const { handleSubmit } = props;
+  return (
+    <form
+      className={styles.sendMessageForm}
+      onSubmit={handleSubmit}
+    >
+      <Field
+        className={styles.textarea}
+        type='text'
+        name='textMessage'
+        component='textarea'
+        value={props.textMessage}
+        placeholder='Enter message..'
+        onChange={props.onEnteringMessage}
+      />
+      <button className={styles.sendButton} onClick={props.createNewMessage}>Send Message</button>
+    </form>
+  )
+}
+
+DialogForm = reduxForm({ form: 'dialogs' })(DialogForm);

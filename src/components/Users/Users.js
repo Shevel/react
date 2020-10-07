@@ -4,7 +4,6 @@ import styles from './Users.module.css';
 import noavatar from '../../assets/image/noavatar.jpg';
 
 export const Users = (props) => {
-  console.log(props)
 
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
   const pages = [...Array(pagesCount).keys()].map((i) => i = i + 1);

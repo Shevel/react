@@ -10,13 +10,13 @@ let LoginForm = (props) => {
       onSubmit={handleSubmit}
     >
       <div className={styles.login_input}>
-        <Field name='login' placeholder='Login:' component={'input'} />
+        <Field name='login' placeholder='Login:' component='input' />
       </div>
       <div className={styles.login_input}>
-        <Field name='password' type='password' placeholder='Password:' component={'input'} />
+        <Field name='password' type='password' placeholder='Password:' component='input' />
       </div>
       <div className={styles.remember_me}>
-        <Field component={'input'} name='rememberMe' type='checkbox' /> Remember me
+        <Field component='input' name='rememberMe' type='checkbox' /> Remember me
         </div>
       <div className={styles.submit_btn}>
         <button type='submit'>Sign In</button>
