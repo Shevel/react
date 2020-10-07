@@ -4,7 +4,7 @@ import s from '../Profile.module.css';
 import { Preloader } from '../../common/Preloader/Preloader';
 import { ProfileStatus } from '../ProfileStatus/ProfileStatus';
 
-export const ProfileInfo = ({ profile }) => {
+export const ProfileInfo = ({ profile, status, updateStatus }) => {
   if (!profile) {
     return <Preloader />
   }
@@ -20,7 +20,7 @@ export const ProfileInfo = ({ profile }) => {
         }
         <div className={s.info}>
           <p className={s.avatar__name}>{profile.fullName}</p>
-          <ProfileStatus status='Hello my Friends!' />
+          <ProfileStatus status={status} updateStatus={updateStatus} />
           <p className={s.about}>{`"${profile.aboutMe}"`}</p>
           <input id='lookingForaJob' type='checkbox' readOnly checked={profile.lookingForAJob} />
           <label htmlFor='lookingForaJob'>Looking for a Job</label>
