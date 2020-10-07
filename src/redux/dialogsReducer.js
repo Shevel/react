@@ -1,4 +1,3 @@
-const ENTERING_MESSAGE = 'ENTERING_MESSAGE';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 const initialState = {
@@ -9,7 +8,6 @@ const initialState = {
     { id: 4, string: 'LOL' },
     { id: 5, string: 'KEKIS! =^_^= ' },
   ],
-  textMessage: '',
   dialogsData: [
     { id: 1, name: 'Dymych' },
     { id: 2, name: 'Alexander' },
@@ -22,31 +20,21 @@ const initialState = {
 
 export const dialogsReducer = (state = initialState, action) => {
   switch (action.type) {
+
     case SEND_MESSAGE:
       return {
         ...state,
         messagesData: [...state.messagesData, {
           id: state.messagesData.length + 1,
-          string: state.textMessage,
+          string: action.textMessage,
         }],
-        textMessage: '',
       }
 
-    case ENTERING_MESSAGE:
-      return {
-        ...state,
-        textMessage: action.textMessage,
-      }
-      
     default:
       return state;
   }
 }
 
-export const enteringMessageActionCreator = (text) => { // Utils
-  return { type: ENTERING_MESSAGE, textMessage: text }
-}
-
-export const sendMessageActionCreator = () => { // Utils
-  return { type: SEND_MESSAGE }
+export const sendMessageActionCreator = (textMessage) => { // Utils
+  return { type: SEND_MESSAGE, textMessage }
 }

@@ -14,15 +14,8 @@ export const Dialogs = (props) => {
   const messagesElements = messages
     .map(message => <Message key={messages.length - message.id} text={message.string} />);
 
-  const createNewMessage = () => {
-    props.sendMessage();
-  }
-  const onEnteringMessage = (e) => {
-    const messageText = e.target.value;
-    props.enteringMessage(messageText);
-  }
   const onSubmitDialogs = (dialogData) => {
-    console.log(dialogData)
+    props.sendMessage(dialogData.textMessage);
   }
   return (
     <div className={styles.dialogs}>
@@ -34,9 +27,6 @@ export const Dialogs = (props) => {
           {messagesElements}
         </div>
         <DialogForm
-          textMessage={props.dialogsPage.textMessage}
-          onEnteringMessage={onEnteringMessage}
-          createNewMessage={createNewMessage}
           onSubmit={onSubmitDialogs}
         />
       </div>
@@ -56,11 +46,9 @@ let DialogForm = (props) => {
         type='text'
         name='textMessage'
         component='textarea'
-        value={props.textMessage}
         placeholder='Enter message..'
-        onChange={props.onEnteringMessage}
       />
-      <button className={styles.sendButton} onClick={props.createNewMessage}>Send Message</button>
+      <button className={styles.sendButton}>Send Message</button>
     </form>
   )
 }
