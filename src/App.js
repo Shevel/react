@@ -5,7 +5,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import { Route, BrowserRouter } from 'react-router-dom';
 import { Navbar } from './components/Navbar/Navbar';
-import { Login } from './components/Login/Login';
+import Login from './components/Login/Login';
 import { News } from './components/News/News';
 import { Music } from './components/Music/Music';
 import { Settings } from './components/Settings/Settings';
