@@ -1,0 +1,13 @@
+.textareaContainer {
+  width: 100%;
+}
+.formControl.error input,
+.formControl.error textarea {
+  border: 1px solid #d40000;
+}
+.formControl.error span {
+  color: #d40000;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
