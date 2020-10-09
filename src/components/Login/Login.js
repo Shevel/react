@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Login.module.css";
+import '../../assets/styles/buttons.css';
 import { Field, reduxForm } from "redux-form";
 import { Input } from "../common/FormControls/FormControls";
 import { required } from "../../utils/validators";
@@ -32,9 +33,15 @@ let LoginForm = (props) => {
         <Field component={Input} name="rememberMe" type="checkbox" /> Remember
         me
       </div>
-      <div className={styles.submit_btn}>
-        <button type="submit">Sign In</button>
+      <div className={styles.btn}>
+        <button className='btn' type="submit">Sign In</button>
       </div>
+      {
+        props.error && <div className={styles.summaryErrorBlock}>
+          <span className={styles.summaryErrorBlock__message}>{props.error}</span>
+          {/* <span className={styles.summaryErrorBlock__message}>Sorry, email or password is wrong.Try once more.</span> */}
+        </div>
+      }
     </form>
   );
 };
@@ -49,8 +56,8 @@ const Login = (props) => {
     return <Redirect to="/profile" />;
   }
   return (
-    <div>
-      <h1 className={styles.login}>Login</h1>
+    <div className={styles.login_page}>
+      <p className={styles.login}>Login Form</p>
       <LoginForm onSubmit={submit} />
     </div>
   );

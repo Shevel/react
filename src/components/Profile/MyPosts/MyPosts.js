@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./MyPosts.module.css";
+import '../../../assets/styles/buttons.css';
 import { Post } from "./Post/Post";
 import { Field, reduxForm } from "redux-form";
-import { required, maxLengthCreator } from "../../../utils/validators";
+import { maxLengthCreator } from "../../../utils/validators";
 import { Textarea } from "../../common/FormControls/FormControls";
 
-const maxLenghtFiled300 = maxLengthCreator(300);
+const maxLengthFiled300 = maxLengthCreator(300);
 
 export const MyPosts = (props) => {
   const postElements = props.profilePage.postsData.map((post) => (
@@ -38,9 +39,9 @@ let PostForm = (props) => {
         component={Textarea}
         type="text"
         placeholder="Enter new post text.."
-        validate={[required, maxLenghtFiled300]}
+        validate={[maxLengthFiled300]}
       />
-      <button className={styles.btn}>Add post</button>
+      <button className='btn'>Add post</button>
     </form>
   );
 };

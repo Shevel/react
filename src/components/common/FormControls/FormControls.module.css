@@ -1,5 +1,6 @@
 .textareaContainer {
   width: 100%;
+  position: relative;
 }
 .formControl.error input,
 .formControl.error textarea {
@@ -10,4 +11,16 @@
   position: absolute;
   margin: 0;
   padding: 0;
+  top: 13px;
+  left: 115px;
+  font-size: 13px;
+}
+
+.formControl input {
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 15px;
+  margin: 5px 0;
+  outline: none;
+  border: 1px solid #c4c4c4;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Users.module.css';
 import noavatar from '../../assets/image/noavatar.jpg';
+import '../../assets/styles/buttons.css';
 
 export const Users = (props) => {
 
@@ -39,13 +40,13 @@ export const Users = (props) => {
                     user.followed
                       ? <button
                         disabled={props.followingInProgress.some(id => id === user.id)}
-                        className={`${styles.unfollow} ${styles.btn}`}
+                        className={`${styles.unfollow} btn`}
                         onClick={() => {
                           props.unfollow(user.id);
                         }}>UnFollow</button>
                       : <button
                         disabled={props.followingInProgress.some(id => id === user.id)}
-                        className={`${styles.follow} ${styles.btn}`}
+                        className={`${styles.follow} btn`}
                         onClick={() => {
                           props.follow(user.id);
                         }}>Follow</button>

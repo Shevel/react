@@ -22,6 +22,12 @@
   border-radius: 3px;
   margin-bottom: 5px;
   box-sizing: border-box;
+  background-color: #ffffff1c;
+  transition: all 0.2s;
+}
+.textarea:focus,
+.textarea:hover {
+  background-color: #ffffffd2;
 }
 
 .messages {

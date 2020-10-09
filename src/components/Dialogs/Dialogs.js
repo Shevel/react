@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./Dialogs.module.css";
+import '../../assets/styles/buttons.css';
 import { Dialog } from "./Dialog/Dialog";
 import { Message } from "./Message/Message";
 import { reduxForm, Field } from "redux-form";
 import { Textarea } from "../common/FormControls/FormControls";
-import { maxLengthCreator, required } from "../../utils/validators";
+import { maxLengthCreator } from "../../utils/validators";
 
 const maxLength300 = maxLengthCreator(300);
 
@@ -47,10 +48,10 @@ let DialogForm = (props) => {
         type="text"
         name="textMessage"
         component={Textarea}
-        validate={[required, maxLength300]}
+        validate={[maxLength300]}
         placeholder="Enter message.."
       />
-      <button className={styles.sendButton}>Send Message</button>
+      <button className='btn'>Send Message</button>
     </form>
   );
 };

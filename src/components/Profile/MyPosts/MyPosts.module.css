@@ -1,5 +1,6 @@
 .posts {
 }
+.posts textarea:focus,
 .posts textarea:hover {
   background-color: #f6f6f6;
 }
@@ -15,6 +16,9 @@ h3 {
   transition: all 0.2s;
   resize: none;
   position: relative;
+  background-color: #ffffffb5;
+  border: none;
+  outline-color: #c4c4c4;
 }
 .newMessageForm {
   height: 90px;
