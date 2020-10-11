@@ -3,6 +3,7 @@ import defaultAvatar from '../../../assets/image/noavatar.jpg';
 import s from '../Profile.module.css';
 import { Preloader } from '../../common/Preloader/Preloader';
 import { ProfileStatus } from '../ProfileStatus/ProfileStatus';
+import { ProfileStatusHooks } from '../ProfileStatus/ProfileStatusHooks';
 
 export const ProfileInfo = ({ profile, status, updateStatus }) => {
   if (!profile) {
@@ -20,7 +21,7 @@ export const ProfileInfo = ({ profile, status, updateStatus }) => {
         }
         <div className={s.info}>
           <p className={s.avatar__name}>{profile.fullName}</p>
-          <ProfileStatus status={status} updateStatus={updateStatus} />
+          <ProfileStatusHooks status={status} updateStatus={updateStatus} />
           <p className={s.about}>{`"${profile.aboutMe}"`}</p>
           <input id='lookingForaJob' type='checkbox' readOnly checked={profile.lookingForAJob} />
           <label htmlFor='lookingForaJob'>Looking for a Job</label>
