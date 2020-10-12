@@ -13,12 +13,6 @@
 }
 .login {
   margin-right: 15px;
-  transition: text-shadow 0.1s;
-}
-.login:hover {
-  text-shadow: 2px 2px 0 #40b540, 2px -2px 0 #40b540, -2px 2px 0 #40b540,
-    -2px -2px 0 #40b540, 2px 0px 0 #40b540, 0px 2px 0 #40b540,
-    -2px 0px 0 #40b540, 0px -2px 0 #40b540;
 }
 .login_block {
   display: flex;

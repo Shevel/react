@@ -22,7 +22,7 @@ export const ProfileInfo = ({ profile, status, updateStatus }) => {
         <div className={s.info}>
           <p className={s.avatar__name}>{profile.fullName}</p>
           <ProfileStatusHooks status={status} updateStatus={updateStatus} />
-          <p className={s.about}>{`"${profile.aboutMe}"`}</p>
+          <p className={s.about}>{`About me:"${profile.aboutMe}"`}</p>
           <input id='lookingForaJob' type='checkbox' readOnly checked={profile.lookingForAJob} />
           <label htmlFor='lookingForaJob'>Looking for a Job</label>
         </div>
