@@ -8,10 +8,10 @@ import { Textarea } from "../../common/FormControls/FormControls";
 
 const maxLengthFiled300 = maxLengthCreator(300);
 
-export const MyPosts = (props) => {
-  const postElements = props.profilePage.postsData.map((post) => (
+export const MyPosts = React.memo(props => {
+  const postElements = props.postsData.map((post) => (
     <Post
-      key={props.profilePage.postsData.length - post.id}
+      key={props.postsData.length - post.id}
       message={post.string}
       likesCount={post.likesCount}
     />
@@ -20,15 +20,16 @@ export const MyPosts = (props) => {
   const onSubmitPost = (postData) => {
     props.addPost(postData.newPost);
   };
-
+  console.log('render!')
   return (
+
     <div className={styles.posts}>
       <h3 className={styles.header}>My Posts</h3>
       <PostForm onSubmit={onSubmitPost} />
       {postElements}
     </div>
   );
-};
+});
 
 let PostForm = (props) => {
   const { handleSubmit } = props;

@@ -21,7 +21,6 @@ export class UsersContainer extends React.Component {
   }
 
   onPageChanged = (pageNumber) => {
-    console.log(pageNumber);
     this.props.getUsersThunk(pageNumber, this.props.pageSize);
   }
   render() {

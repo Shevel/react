@@ -20,10 +20,6 @@ export const usersAPI = {
   unfollow(userId) {
     return instance.delete(`follow/${userId}`);
   },
-  getProfile(userId) {
-    console.warn("You use depricated method.Please use new API requests.");
-    return profileAPI.getProfile(userId);
-  },
 };
 
 export const profileAPI = {
