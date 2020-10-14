@@ -1,8 +1,6 @@
 .login_form {
   position: relative;
 }
-.login_input {
-}
 .summaryErrorBlock {
   position: absolute;
   background-color: #ffffffde;
@@ -18,8 +16,9 @@
   text-decoration: underline;
 }
 .remember_me {
-}
-.btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .login {
   font-style: italic;

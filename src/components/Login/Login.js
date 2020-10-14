@@ -1,45 +1,32 @@
 import React from "react";
 import styles from "./Login.module.css";
 import '../../assets/styles/buttons.css';
-import { Field, reduxForm } from "redux-form";
-import { Input } from "../common/FormControls/FormControls";
+import { reduxForm } from "redux-form";
+import { Input, createField } from "../common/FormControls/FormControls";
 import { required } from "../../utils/validators";
 import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Redirect } from "react-router-dom";
 
-let LoginForm = (props) => {
-  const { handleSubmit } = props;
+let LoginForm = ({ handleSubmit, error }) => {
   return (
     <form className={styles.login_form} onSubmit={handleSubmit}>
       <div className={styles.login_input}>
-        <Field
-          name="email"
-          placeholder="Email:"
-          component={Input}
-          validate={[required]}
-        />
+        {createField('Email', 'email', [required], Input)}
       </div>
       <div className={styles.login_input}>
-        <Field
-          name="password"
-          type="password"
-          placeholder="Password:"
-          validate={[required]}
-          component={Input}
-        />
+        {createField('Password', 'password', [required], Input, { type: 'password' })}
       </div>
       <div className={styles.remember_me}>
-        <Field component={Input} name="rememberMe" type="checkbox" /> Remember
-        me
+        <span>Remember me</span>
+        {createField(null, 'rememberMe', [], Input, { type: 'checkbox' })}
       </div>
       <div className={styles.btn}>
         <button className='btn' type="submit">Sign In</button>
       </div>
       {
-        props.error && <div className={styles.summaryErrorBlock}>
-          <span className={styles.summaryErrorBlock__message}>{props.error}</span>
-          {/* <span className={styles.summaryErrorBlock__message}>Sorry, email or password is wrong.Try once more.</span> */}
+        error && <div className={styles.summaryErrorBlock}>
+          <span className={styles.summaryErrorBlock__message}>{error}</span>
         </div>
       }
     </form>
