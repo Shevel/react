@@ -1,8 +1,9 @@
 const { profileReducer, newPost, deletePost } = require("./profileReducer");
+
 let state = {
   postsData: [
     { id: 1, string: 'Ho-ho-ho!', likesCount: 5 },
-    { id: 2, string: 'Cooooool! What\'s up?', likesCount: 7 },
+    { id: 2, string: 'Cool! What\'s up?', likesCount: 7 },
     { id: 3, string: 'Yo!!', likesCount: 9 },
   ]
 };

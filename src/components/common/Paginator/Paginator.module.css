@@ -23,3 +23,6 @@
 .pagination_item:hover {
   box-shadow: 0px 0px 8px 2px #0761cf;
 }
+.paginator_btn {
+  border-radius: 10px;
+}

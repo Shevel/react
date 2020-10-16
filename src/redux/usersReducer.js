@@ -10,7 +10,7 @@ const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
 
 const initialState = {
   users: [],
-  totalUsersCount: 50,
+  totalUsersCount: null,
   pageSize: 7,
   currentPage: 1,
   isFetching: false,
@@ -68,7 +68,7 @@ export const getUsersThunk = (currentPage, pageSize) => async (dispatch) => {
   dispatch(toggleIsFetching(false));
   dispatch(setUsers(data.items));
   dispatch(setCurrentPage(currentPage));
-  // dispatch(setUsersTotalCount(data.totalCount));
+  dispatch(setUsersTotalCount(data.totalCount));
 };
 
 const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {

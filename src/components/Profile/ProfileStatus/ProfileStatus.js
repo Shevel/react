@@ -22,7 +22,7 @@ export class ProfileStatus extends React.Component {
     })
 
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.status !== this.props.status) {
       this.setState({
         status: this.props.status
@@ -35,7 +35,8 @@ export class ProfileStatus extends React.Component {
       <>
         {!this.state.editMode &&
           <div>
-            <span className={styles.status} onClick={this.activateEditMode}>{this.props.status || 'Set status..'}</span>
+            <span className={styles.status}
+              onClick={this.activateEditMode}>{this.props.status || 'Set status..'}</span>
           </div>
         }
         {this.state.editMode &&
