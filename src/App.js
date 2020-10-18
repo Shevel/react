@@ -1,18 +1,17 @@
 import React from 'react';
 import './App.css';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { store } from './redux/redux-store';
 import { Preloader } from './components/common/Preloader/Preloader';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
 import { News } from './components/News/News';
 import { Music } from './components/Music/Music';
 import { Settings } from './components/Settings/Settings';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
 import { initApp } from './redux/appReducer';
 import { withSuspense } from './hoc/withSuspense';
 
@@ -56,11 +55,11 @@ const AppContainer = compose(connect(mapStateToProps, { initApp }))(App);
 
 const MainApplication = (props) => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store} >
         <AppContainer />
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
