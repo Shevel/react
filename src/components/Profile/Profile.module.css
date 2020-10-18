@@ -45,3 +45,11 @@
   border-radius: 2px;
   background-color: #f0f2f5;
 }
+.ava_block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.upload_ava {
+  display: inline-block;
+}

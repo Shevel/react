@@ -20,7 +20,7 @@ export const MyPosts = React.memo(props => {
   const onSubmitPost = (postData) => {
     props.addPost(postData.newPost);
   };
-  console.log('render!')
+
   return (
 
     <div className={styles.posts}>
