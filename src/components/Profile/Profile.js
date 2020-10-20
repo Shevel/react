@@ -8,6 +8,7 @@ export const Profile = ({
   updateStatus,
   isOwner,
   saveMainAvatar,
+  saveProfile
 }) => {
   return (
     <div>
@@ -17,6 +18,7 @@ export const Profile = ({
         status={status}
         updateStatus={updateStatus}
         saveMainAvatar={saveMainAvatar}
+        saveProfile={saveProfile}
       />
       <MyPostsContainer />
     </div>

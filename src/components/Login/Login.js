@@ -36,7 +36,7 @@ let LoginForm = ({ handleSubmit, error }) => {
 LoginForm = reduxForm({ form: "login" })(LoginForm);
 
 const Login = (props) => {
-  const submit = (formData) => {
+  const onSubmit = (formData) => {
     props.login(formData.email, formData.password, formData.rememberMe);
   };
   if (props.isAuth) {
@@ -45,7 +45,7 @@ const Login = (props) => {
   return (
     <div className={styles.login_page}>
       <p className={styles.login}>Login Form</p>
-      <LoginForm onSubmit={submit} />
+      <LoginForm onSubmit={onSubmit} />
     </div>
   );
 };
