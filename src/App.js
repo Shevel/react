@@ -5,7 +5,8 @@ import { store } from './redux/redux-store';
 import { Preloader } from './components/common/Preloader/Preloader';
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import { HashRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router'
 import { Navbar } from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
 import { News } from './components/News/News';
@@ -33,13 +34,17 @@ class App extends React.Component {
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-          <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-          <Route path='/users' render={() => <UsersContainer />} />
-          <Route path='/login' render={() => <Login />} />
-          <Route path='/news' component={News} />
-          <Route path='/music' component={Music} />
-          <Route path='/settings' component={Settings} />
+          <Switch>
+            <Route exact path='/' render={() => <Redirect to='/profile' />} />
+            <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
+            <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
+            <Route path='/users' render={() => <UsersContainer />} />
+            <Route path='/login' render={() => <Login />} />
+            <Route path='/news' component={News} />
+            <Route path='/music' component={Music} />
+            <Route path='/settings' component={Settings} />
+            <Route path='*' render={() => <div>404 NOT FOUND</div>} />
+          </Switch>
         </div>
       </div>
     );
@@ -55,11 +60,11 @@ const AppContainer = compose(connect(mapStateToProps, { initApp }))(App);
 
 const MainApplication = (props) => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Provider store={store} >
         <AppContainer />
       </Provider>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 

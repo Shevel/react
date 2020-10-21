@@ -60,6 +60,6 @@ export default compose(
     saveMainAvatar,
     saveProfile,
   }),
-  withRouter,
+  withRouter, // connecting to url parameter
   withAuthRedirect
 )(ProfileContainer);
