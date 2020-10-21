@@ -92,9 +92,14 @@ export const getStatus = (userId) => async (dispatch) => {
   dispatch(setStatus(response.data));
 };
 export const updateStatus = (status) => async (dispatch) => {
-  const response = await profileAPI.updateStatus(status);
-  if (!response.data.resultCode) {
-    dispatch(setStatus(status));
+  try {
+    const response = await profileAPI.updateStatus(status);
+    if (!response.data.resultCode) {
+      dispatch(setStatus(status));
+    }
+  }
+  catch (error) {
+    console.log(error)
   }
 };
 export const saveMainAvatar = (file) => async (dispatch) => {
