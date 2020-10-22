@@ -24,7 +24,7 @@ class App extends React.Component {
   catchAllUnhandledErrors = (event) => {
     event.preventDefault();
     const reason = (event.reason || event.detail.reason);
-    console.log(reason.message);
+    console.log(reason);
   }
 
   componentDidMount() {

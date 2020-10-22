@@ -7,6 +7,8 @@
   background: linear-gradient(0.25turn, #f69d3c, #ebf8e1, #3f87a6);
   border-bottom: 10px solid #c4c4c4;
   box-sizing: border-box;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .logo {
   width: 70px;
