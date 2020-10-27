@@ -4,7 +4,7 @@ import styles from './Users.module.css';
 import '../../assets/styles/buttons.css';
 import noavatar from '../../assets/image/noavatar.jpg';
 
-export const User = ({ user, ...props }) => {
+export const User = ({ user, unfollow, follow, followingInProgress }) => {
   return (
     <div className={styles.user}>
       <span className={styles.user_avaBlock}>
@@ -17,16 +17,16 @@ export const User = ({ user, ...props }) => {
           {
             user.followed
               ? <button
-                disabled={props.followingInProgress.some(id => id === user.id)}
+                disabled={followingInProgress.some(id => id === user.id)}
                 className={`${styles.unfollow} btn`}
                 onClick={() => {
-                  props.unfollow(user.id);
+                  unfollow(user.id);
                 }}>UnFollow</button>
               : <button
-                disabled={props.followingInProgress.some(id => id === user.id)}
+                disabled={followingInProgress.some(id => id === user.id)}
                 className={`${styles.follow} btn`}
                 onClick={() => {
-                  props.follow(user.id);
+                  follow(user.id);
                 }}>Follow</button>
           }
         </div>
