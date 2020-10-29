@@ -23,12 +23,12 @@ export type ProfileType = {
   lookingForAJobDescription: string;
   fullName: string;
   contacts: ContactsType;
-  photos: PhotosType;
+  photos: PhotosType | null;
 };
 export type UserType = {
   id: number;
   name: string;
   status: string;
-  photos: PhotosType;
+  photos: PhotosType | null;
   followed: boolean;
 };
