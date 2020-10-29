@@ -1,5 +1,5 @@
 import { PhotosType } from './../types/types';
-// import { FormAction, FormErrors, stopSubmit } from 'redux-form';
+import { stopSubmit } from 'redux-form';
 import { profileAPI } from '../api/api';
 import { PostType, ProfileType } from '../types/types';
 import { AppStateType } from './redux-store';
@@ -141,16 +141,15 @@ export const saveMainAvatar = (file: string): ThunkType => async (dispatch) => {
   }
 };
 export const saveProfile = (profile: ProfileType): ThunkType => async (
-  dispatch,
+  dispatch: any,
   getState
 ) => {
   const response = await profileAPI.saveProfile(profile);
   if (!response.data.resultCode) {
     const userId = getState().auth.id;
     dispatch(getUserProfile(userId));
+  } else {
+    dispatch(stopSubmit('profile', { _error: response.data.messages[0] }));
+    return Promise.reject(response.data.messages[0]);
   }
-  // else {
-  //   dispatch(stopSubmit('profile', { _error: response.data.messages[0] }));
-  //   return Promise.reject(response.data.messages[0]);
-  // }
 };
