@@ -1,5 +1,5 @@
 import { UserType } from '../types/types';
-import { usersAPI } from '../api/api';
+import { FollowUnfollowType, ResultCode, usersAPI } from '../api/api';
 import { updateObjectInArray } from '../utils/objectsHelper';
 import { AppStateType } from './redux-store';
 import { Dispatch } from 'redux';
@@ -103,23 +103,18 @@ export const getUsersThunk = (
 const followUnfollowFlow = async (
   dispatch: DispatchType,
   userId: number,
-  apiMethod: any,
+  apiMethod: (userId: number) => Promise<FollowUnfollowType>,
   actionCreator: (userId: number) => FollowSuccessType | UnfollowSuccessType
 ) => {
   dispatch(toggleIsFollowing(true, userId));
   const response = await apiMethod(userId);
-  if (!response.data.resultCode) {
+  if (response.resultCode === ResultCode.Success) {
     dispatch(actionCreator(userId));
   }
   dispatch(toggleIsFollowing(false, userId));
 };
 export const follow = (userId: number): ThunkType => async (dispatch) => {
-  followUnfollowFlow(
-    dispatch,
-    userId,
-    usersAPI.follow.bind(usersAPI),
-    followSuccess
-  );
+  followUnfollowFlow(dispatch, userId, usersAPI.follow, followSuccess);
 };
 export const unfollow = (userId: number): ThunkType => async (dispatch) => {
   followUnfollowFlow(

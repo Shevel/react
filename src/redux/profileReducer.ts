@@ -1,6 +1,6 @@
 import { PhotosType } from './../types/types';
 import { stopSubmit } from 'redux-form';
-import { profileAPI } from '../api/api';
+import { profileAPI, ResultCode } from '../api/api';
 import { PostType, ProfileType } from '../types/types';
 import { AppStateType } from './redux-store';
 import { ThunkAction } from 'redux-thunk';
@@ -117,39 +117,39 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
 export const getUserProfile = (userId: number | null): ThunkType => async (
   dispatch
 ) => {
-  const response = await profileAPI.getProfile(userId);
-  dispatch(setUserProfile(response.data));
+  const profile = await profileAPI.getProfile(userId as number);
+  dispatch(setUserProfile(profile));
 };
 export const getStatus = (userId: number): ThunkType => async (dispatch) => {
-  const response = await profileAPI.getStatus(userId);
-  dispatch(setStatus(response.data));
+  const status = await profileAPI.getStatus(userId);
+  dispatch(setStatus(status));
 };
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
   try {
     const response = await profileAPI.updateStatus(status);
-    if (!response.data.resultCode) {
+    if (response.resultCode === ResultCode.Success) {
       dispatch(setStatus(status));
     }
   } catch (error) {
-    console.log(error);
+    alert(error);
   }
 };
 export const saveMainAvatar = (file: string): ThunkType => async (dispatch) => {
   const response = await profileAPI.saveMainAvatar(file);
-  if (!response.data.resultCode) {
-    dispatch(saveMainAvatarSuccess(response.data.data.photos));
+  if (response.resultCode === ResultCode.Success) {
+    dispatch(saveMainAvatarSuccess(response.data));
   }
 };
 export const saveProfile = (profile: ProfileType): ThunkType => async (
   dispatch: any,
   getState
 ) => {
-  const response = await profileAPI.saveProfile(profile);
-  if (!response.data.resultCode) {
+  const profileData = await profileAPI.saveProfile(profile);
+  if (profileData.resultCode === ResultCode.Success) {
     const userId = getState().auth.id;
     dispatch(getUserProfile(userId));
   } else {
-    dispatch(stopSubmit('profile', { _error: response.data.messages[0] }));
-    return Promise.reject(response.data.messages[0]);
+    dispatch(stopSubmit('profile', { _error: profileData.messages[0] }));
+    return Promise.reject(profileData.messages[0]);
   }
 };
