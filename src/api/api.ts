@@ -99,8 +99,13 @@ type MeResponseType = {
 };
 type LoginResponseType = {
   data: {
-    userId?: number;
+    userId: number;
   };
+  resultCode: ResultCode | ResultCodeForCaptcha;
+  messages: Array<string>;
+};
+type LogoutResponseType = {
+  data: {};
   resultCode: ResultCode | ResultCodeForCaptcha;
   messages: Array<string>;
 };
@@ -127,7 +132,7 @@ export const authAPI = {
   },
   logout() {
     return instance
-      .delete<LoginResponseType>(`auth/login`)
+      .delete<LogoutResponseType>(`auth/login`)
       .then((response) => response.data);
   },
 };
