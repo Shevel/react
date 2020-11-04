@@ -1,6 +1,5 @@
-import { ThunkAction } from 'redux-thunk';
 import { getAuthUserData } from './authReducer';
-import { AppStateType, InferActionsType } from './redux-store';
+import { InferActionsType, BaseThunkType } from './redux-store';
 
 export type InitialStateType = {
   initialized: boolean;
@@ -32,7 +31,7 @@ const actions = {
   },
 };
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
+type ThunkType = BaseThunkType<ActionsType, void>;
 
 export const initApp = (): ThunkType => (dispatch) => {
   let promise = dispatch(getAuthUserData());

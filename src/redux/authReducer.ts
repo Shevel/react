@@ -1,8 +1,8 @@
 import { ResultCode, ResultCodeForCaptcha } from './../api/api';
-import { authAPI, securityAPI } from '../api/api';
-import { stopSubmit } from 'redux-form';
-import { AppStateType, InferActionsType } from './redux-store';
-import { ThunkAction } from 'redux-thunk';
+import { authAPI } from '../api/authApi';
+import { stopSubmit, FormAction } from 'redux-form';
+import { InferActionsType, BaseThunkType } from './redux-store';
+import { securityAPI } from '../api/securityApi';
 
 type InitialStateType = {
   id: null | number;
@@ -13,6 +13,7 @@ type InitialStateType = {
   captchaURL: null | string;
 };
 type ActionTypes = InferActionsType<typeof actions>;
+type ThunkType = BaseThunkType<ActionTypes | FormAction>;
 
 const initialState: InitialStateType = {
   id: null,
@@ -54,7 +55,6 @@ const actions = {
   },
 };
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
   const meData = await authAPI.me();
   if (meData.resultCode === ResultCode.Success) {
@@ -67,7 +67,7 @@ export const login = (
   password: string,
   rememberMe: boolean,
   captcha: string
-): ThunkType => async (dispatch: any) => {
+): ThunkType => async (dispatch) => {
   const loginData = await authAPI.login(email, password, rememberMe, captcha);
   if (loginData.resultCode === ResultCode.Success) {
     dispatch(getAuthUserData());

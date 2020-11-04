@@ -1,9 +1,9 @@
 import { PhotosType } from './../types/types';
-import { stopSubmit } from 'redux-form';
-import { profileAPI, ResultCode } from '../api/api';
+import { stopSubmit, FormAction } from 'redux-form';
+import { profileAPI } from '../api/profileApi';
 import { PostType, ProfileType } from '../types/types';
-import { AppStateType, InferActionsType } from './redux-store';
-import { ThunkAction } from 'redux-thunk';
+import { InferActionsType, BaseThunkType } from './redux-store';
+import { ResultCode } from '../api/api';
 
 type InitialStateType = typeof initialState;
 const initialState = {
@@ -17,6 +17,7 @@ const initialState = {
 };
 
 type ActionTypes = InferActionsType<typeof actions>;
+type ThunkType = BaseThunkType<ActionTypes | FormAction>;
 
 export const profileReducer = (
   state = initialState,
@@ -85,11 +86,10 @@ export const actions = {
   },
 };
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
-export const getUserProfile = (userId: number | null): ThunkType => async (
+export const getUserProfile = (userId: number): ThunkType => async (
   dispatch
 ) => {
-  const profile = await profileAPI.getProfile(userId as number);
+  const profile = await profileAPI.getProfile(userId);
   dispatch(actions.setUserProfile(profile));
 };
 export const getStatus = (userId: number): ThunkType => async (dispatch) => {
@@ -106,20 +106,24 @@ export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     alert(error);
   }
 };
-export const saveMainAvatar = (file: string): ThunkType => async (dispatch) => {
+export const saveMainAvatar = (file: File): ThunkType => async (dispatch) => {
   const response = await profileAPI.saveMainAvatar(file);
   if (response.resultCode === ResultCode.Success) {
     dispatch(actions.saveMainAvatarSuccess(response.data));
   }
 };
 export const saveProfile = (profile: ProfileType): ThunkType => async (
-  dispatch: any,
+  dispatch,
   getState
 ) => {
   const profileData = await profileAPI.saveProfile(profile);
   if (profileData.resultCode === ResultCode.Success) {
     const userId = getState().auth.id;
-    dispatch(getUserProfile(userId));
+    if (userId) {
+      dispatch(getUserProfile(userId));
+    } else {
+      throw new Error('userid cant be null');
+    }
   } else {
     dispatch(stopSubmit('profile', { _error: profileData.messages[0] }));
     return Promise.reject(profileData.messages[0]);
