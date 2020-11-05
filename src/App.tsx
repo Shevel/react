@@ -2,19 +2,19 @@ import React from 'react';
 import './App.css';
 import { Provider, connect } from 'react-redux';
 import { AppStateType, store } from './redux/redux-store';
-import Preloader from './components/common/Preloader/Preloader';
+import { Preloader } from './components/common/Preloader/Preloader';
 import HeaderContainer from './components/Header/HeaderContainer';
 import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router'
-import Navbar from './components/Navbar/Navbar';
-import Login from './components/Login/Login';
-import News from './components/News/News';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
+import { Navbar } from './components/Navbar/Navbar';
+import { LoginPage } from './components/LoginPage/LoginPage';
+import { News } from './components/News/News';
+import { Music } from './components/Music/Music';
+import { Settings } from './components/Settings/Settings';
 import { compose } from 'redux';
 import { initApp } from './redux/appReducer';
 import { withSuspense } from './hoc/withSuspense';
-import UsersContainer from './components/Users/UsersContainer';
+import { UsersPage } from './components/Users/UsersPage';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -53,8 +53,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             <Route exact path='/' render={() => <Redirect to='/profile' />} />
             <Route path='/dialogs' render={() => <SuspendedDialogs />} />
             <Route path='/profile/:userId?' render={() => <SuspendedProfile />} />
-            <Route path='/users' render={() => <UsersContainer />} />
-            <Route path='/login' render={() => <Login />} />
+            <Route path='/users' render={() => <UsersPage />} />
+            <Route path='/login' render={() => <LoginPage />} />
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
             <Route path='/settings' component={Settings} />

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import defaultAvatar from "../../../assets/image/noavatar.jpg";
 import s from "../Profile.module.css";
 import "../../../assets/styles/buttons.css";
-import Preloader from "../../common/Preloader/Preloader";
+import { Preloader } from "../../common/Preloader/Preloader";
 import { ProfileStatusHooks } from "../ProfileStatus/ProfileStatusHooks";
 import ProfileDataReduxForm from "../ProfileDataForm/ProfileDataForm";
 import addIcon from "../../../assets/icon/add.png";
