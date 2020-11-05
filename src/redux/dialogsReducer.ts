@@ -51,7 +51,7 @@ export const dialogsReducer = (
 };
 
 export const actions = {
-  sendMessageActionCreator: (textMessage: string) => {
+  sendMessage: (textMessage: string) => {
     return { type: 'SEND_MESSAGE', textMessage } as const;
   },
 };

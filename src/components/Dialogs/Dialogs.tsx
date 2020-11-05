@@ -3,17 +3,19 @@ import styles from "./Dialogs.module.css";
 import '../../assets/styles/buttons.css';
 import { Dialog } from "./Dialog/Dialog";
 import { Message } from "./Message/Message";
-import { reduxForm, Field, InjectedFormProps } from "redux-form";
-import { Textarea } from "../common/FormControls/FormControls";
+import { reduxForm, InjectedFormProps } from "redux-form";
+import { createField, Textarea } from "../common/FormControls/FormControls";
 import { maxLengthCreator } from "../../utils/validators";
 import { MessageType, DialogType } from '../../redux/dialogsReducer';
 
 type DialogsPropsType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
-  sendMessage: any
+  sendMessage: (messageText: string) => void
 }
-
+type NewMessageFormType = {
+  textMessage: string
+}
 const maxLength300 = maxLengthCreator(300);
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -29,7 +31,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     <Message key={props.messages.length - message.id} text={message.string} />
   ));
 
-  const handleSubmit = (dialogData: any) => {
+  const handleSubmit = (dialogData: NewMessageFormType) => {
     props.sendMessage(dialogData.textMessage);
   };
 
@@ -56,18 +58,14 @@ export interface IDispatchProps {
   onSubmit: (data: IFormData, dispatch: Dispatch<any>, props: IOwnProps) => void;
 }
 type AllSampleFormProps = IOwnProps & IDispatchProps & InjectedFormProps<IFormData, IOwnProps>;
-
+type NewMessageFromValuesKeysType = Extract<keyof NewMessageFormType, string>
 const DialogForm: React.FC<AllSampleFormProps> = ({ handleSubmit }) => {
   return (
     <form className={styles.sendMessageForm} onSubmit={handleSubmit}>
-      <Field
-        className={styles.textarea}
-        type="text"
-        name="textMessage"
-        component={Textarea}
-        validate={[maxLength300]}
-        placeholder="Enter message.."
-      />
+      <div className={styles.textarea}>
+        {createField<NewMessageFromValuesKeysType>('Enter message', 'textMessage', [maxLength300], Textarea, { type: 'text' })}
+      </div>
+
       <button className='btn'>Send Message</button>
     </form>
   );

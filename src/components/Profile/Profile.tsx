@@ -1,8 +1,16 @@
 import React from "react";
-import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
+import { ProfileType } from "../../types/types";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-
-export const Profile = ({
+type PropsType = {
+  profile: ProfileType | null
+  status: string
+  isOwner: boolean
+  updateStatus: (status: string) => void
+  saveMainAvatar: (file: File) => void
+  saveProfile: (formData: ProfileType) => Promise<void>
+}
+export const Profile: React.FC<PropsType> = ({
   profile,
   status,
   updateStatus,

@@ -3,14 +3,23 @@ import { NavLink } from 'react-router-dom';
 import styles from './Users.module.css';
 import '../../assets/styles/buttons.css';
 import noavatar from '../../assets/image/noavatar.jpg';
-
-export const User = ({ user, unfollow, follow, followingInProgress }) => {
+import { UserType } from '../../types/types';
+type PropsType = {
+  user: UserType
+  unfollow: (userId: number) => void
+  follow: (userId: number) => void
+  followingInProgress: Array<number>
+}
+const User: React.FC<PropsType> = ({ user, unfollow, follow, followingInProgress }) => {
   return (
     <div className={styles.user}>
       <span className={styles.user_avaBlock}>
         <div>
           <NavLink to={`/profile/${user.id}`}>
-            <img className={styles.avatar} src={user.photos.small ? user.photos.small : noavatar} alt='avatar' />
+            <img
+              className={styles.avatar}
+              src={user && user.photos && user.photos.small !== null ? user.photos.small : noavatar}
+              alt='avatar' />
           </NavLink>
         </div>
         <div>
@@ -44,3 +53,4 @@ export const User = ({ user, unfollow, follow, followingInProgress }) => {
     </div>
   )
 }
+export default User;

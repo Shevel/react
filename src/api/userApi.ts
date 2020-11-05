@@ -2,9 +2,17 @@ import { UserType } from '../types/types';
 import { instance, ResponseType } from './api';
 
 export const usersAPI = {
-  getUsers(currentPage: number, pageSize: number) {
+  getUsers(
+    currentPage: number = 1,
+    pageSize: number = 7,
+    term: string = '',
+    friend: null | boolean = null
+  ) {
     return instance
-      .get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
+      .get<GetUsersType>(
+        `users?page=${currentPage}&count=${pageSize}&term=${term}` +
+          (friend === null ? '' : `&friend=${friend}`)
+      )
       .then((response) => response.data);
   },
   follow(userId: number) {

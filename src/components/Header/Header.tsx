@@ -4,8 +4,13 @@ import s from "./Header.module.css";
 import "../../assets/styles/buttons.css";
 import "../../assets/styles/buttons.css";
 import { NavLink } from "react-router-dom";
-
-export const Header = (props) => {
+type PropsType = {
+  isAuth: boolean
+  login: string | null
+  email: string | null
+  logout: () => void
+}
+export const Header: React.FC<PropsType> = (props) => {
   return (
     <header className={s.header}>
       <img className={s.logo} src={Logo} alt="logo" />
@@ -21,10 +26,10 @@ export const Header = (props) => {
             </button>
           </div>
         ) : (
-          <NavLink className={s.login} to="/login">
-            <button className='btn'>Login</button>
-          </NavLink>
-        )}
+            <NavLink className={s.login} to="/login">
+              <button className='btn'>Login</button>
+            </NavLink>
+          )}
       </div>
     </header>
   );

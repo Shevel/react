@@ -6,6 +6,7 @@ import { Dispatch } from 'redux';
 import { ResponseType, ResultCode } from '../api/api';
 
 type initialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 
 const initialState = {
   users: [] as Array<UserType>,
@@ -14,10 +15,13 @@ const initialState = {
   currentPage: 1,
   isFetching: false,
   followingInProgress: [] as Array<number>, // array of usersId
+  filter: {
+    term: '',
+    friend: null as null | boolean,
+  },
 };
 type ActionsTypes = InferActionsType<typeof actions>;
 type ThunkType = BaseThunkType<ActionsTypes>;
-type DispatchType = Dispatch<ActionsTypes>;
 
 export const usersReducer = (
   state = initialState,
@@ -61,6 +65,11 @@ export const usersReducer = (
         ...state,
         users: [...action.users],
       };
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
+      };
     case 'SET_USERS_TOTAL_COUNT':
       return {
         ...state,
@@ -73,17 +82,26 @@ export const usersReducer = (
 
 export const getUsersThunk = (
   currentPage: number,
-  pageSize: number
+  pageSize: number,
+  filter: FilterType
 ): ThunkType => async (dispatch) => {
   dispatch(actions.toggleIsFetching(true));
-  const data = await usersAPI.getUsers(currentPage, pageSize);
-  dispatch(actions.toggleIsFetching(false));
-  dispatch(actions.setUsers(data.items));
   dispatch(actions.setCurrentPage(currentPage));
+  dispatch(actions.setFilter(filter));
+
+  const data = await usersAPI.getUsers(
+    currentPage,
+    pageSize,
+    filter.term,
+    filter.friend
+  );
+  dispatch(actions.toggleIsFetching(false));
+
+  dispatch(actions.setUsers(data.items));
   dispatch(actions.setUsersTotalCount(data.totalCount));
 };
 const followUnfollowFlow = async (
-  dispatch: DispatchType,
+  dispatch: Dispatch<ActionsTypes>,
   userId: number,
   apiMethod: (userId: number) => Promise<ResponseType>,
   actionCreator: (userId: number) => ActionsTypes
@@ -119,6 +137,9 @@ export const actions = {
   },
   setCurrentPage: (currentPage: number) => {
     return { type: 'SET_CURRENT_PAGE', currentPage } as const;
+  },
+  setFilter: (filter: FilterType) => {
+    return { type: 'SET_FILTER', payload: { ...filter } } as const;
   },
   setUsersTotalCount: (totalUsersCount: number) => {
     return { type: 'SET_USERS_TOTAL_COUNT', totalUsersCount } as const;

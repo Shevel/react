@@ -1,30 +1,35 @@
 import React from 'react';
 import './App.css';
 import { Provider, connect } from 'react-redux';
-import { store } from './redux/redux-store';
-import { Preloader } from './components/common/Preloader/Preloader';
-import UsersContainer from './components/Users/UsersContainer';
+import { AppStateType, store } from './redux/redux-store';
+import Preloader from './components/common/Preloader/Preloader';
 import HeaderContainer from './components/Header/HeaderContainer';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router'
-import { Navbar } from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
-import { News } from './components/News/News';
-import { Music } from './components/Music/Music';
-import { Settings } from './components/Settings/Settings';
+import News from './components/News/News';
+import Music from './components/Music/Music';
+import Settings from './components/Settings/Settings';
 import { compose } from 'redux';
 import { initApp } from './redux/appReducer';
 import { withSuspense } from './hoc/withSuspense';
+import UsersContainer from './components/Users/UsersContainer';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
-class App extends React.Component {
+const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedDialogs = withSuspense(DialogsContainer);
 
-  catchAllUnhandledErrors = (event) => {
-    event.preventDefault();
-    const reason = (event.reason || event.detail.reason);
-    console.log(reason);
+type MapPropsType = ReturnType<typeof mapStateToProps>;
+type DispatchPropsType = {
+  initApp: () => void
+}
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
+  catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
+    alert('Some Error in App (unhandledrejection).');
   }
 
   componentDidMount() {
@@ -46,9 +51,9 @@ class App extends React.Component {
         <div className="app-wrapper-content">
           <Switch>
             <Route exact path='/' render={() => <Redirect to='/profile' />} />
-            <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-            <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-            <Route path='/users' render={() => <UsersContainer title={'Samurais:'} />} />
+            <Route path='/dialogs' render={() => <SuspendedDialogs />} />
+            <Route path='/profile/:userId?' render={() => <SuspendedProfile />} />
+            <Route path='/users' render={() => <UsersContainer />} />
             <Route path='/login' render={() => <Login />} />
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
@@ -60,15 +65,17 @@ class App extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     initialized: state.app.initialized,
   }
 }
 
-const AppContainer = compose(connect(mapStateToProps, { initApp }))(App);
+const AppContainer = compose<React.ComponentType>(
+  withRouter,
+  connect(mapStateToProps, { initApp }))(App);
 
-const MainApplication = (props) => {
+const MainApplication: React.FC = () => {
   return (
     <BrowserRouter>
       <Provider store={store} >

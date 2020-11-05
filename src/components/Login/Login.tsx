@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Login.module.css";
 import '../../assets/styles/buttons.css';
 import { InjectedFormProps, reduxForm } from "redux-form";
-import { Input, createField } from "../common/FormControls/FormControls";
+import { Input, createField, GetStringKeys } from "../common/FormControls/FormControls";
 import { required } from "../../utils/validators";
 import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
@@ -69,7 +69,8 @@ export type LoginFormDataType = {
   rememberMe: boolean
   captcha: string
 }
-type LoginFormDataTypeKeys = Extract<keyof LoginFormDataType, string>;
+type LoginFormDataTypeKeys = GetStringKeys<LoginFormDataType>
+
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
   captchaURL: state.auth.captchaURL,

@@ -21,14 +21,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any): MapDispatchToPropsType => {
-  return {
-    sendMessage: (textMessage) => { dispatch(actions.sendMessageActionCreator(textMessage)) },
-  }
-}
-
-const DialogsContainer = compose(
-  connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps, mapDispatchToProps),
+const DialogsContainer = compose<React.ComponentType>(
+  connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps, { ...actions }),
   withAuthRedirect
 )(Dialogs);
 
