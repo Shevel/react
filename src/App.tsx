@@ -50,7 +50,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         <Navbar />
         <div className="app-wrapper-content">
           <Switch>
-            <Route exact path='/' render={() => <Redirect to='/profile' />} />
+            <Route exact path='/' render={() => <Redirect to='/login' />} />
             <Route path='/dialogs' render={() => <SuspendedDialogs />} />
             <Route path='/profile/:userId?' render={() => <SuspendedProfile />} />
             <Route path='/users' render={() => <UsersPage />} />

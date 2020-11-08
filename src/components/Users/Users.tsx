@@ -7,6 +7,8 @@ import UsersSearchForm from './UsersSearchForm/UsersSearchForm';
 import { FilterType, follow, getUsersThunk, unfollow } from '../../redux/usersReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from '../../redux/usersSelectors';
+import { useHistory } from 'react-router-dom';
+import * as queryString from 'querystring';
 
 type UsersPropsType = {}
 
@@ -18,10 +20,32 @@ export const Users: React.FC<UsersPropsType> = () => {
   const filter = useSelector(getUsersFilter);
   const followingInProgress = useSelector(getFollowingInProgress);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getUsersThunk(currentPage, pageSize, filter));
+    const parsed = queryString.parse(history.location.search.substr(1)) as { term: string; page: string; friend: string; };
+    let actualPage = currentPage;
+    let actualFilter = filter;
+    if (parsed.page) {
+      actualPage = Number(parsed.page);
+    }
+    if (parsed.term) {
+      actualFilter = { ...actualFilter, term: parsed.term as string };
+    }
+    if (parsed.friend) {
+      actualFilter = { ...actualFilter, friend: parsed.friend === 'null' ? null : parsed.friend === 'true' ? true : false };
+    }
+    debugger
+    dispatch(getUsersThunk(actualPage, pageSize, actualFilter));
   }, []);
+
+  useEffect(() => {
+    debugger
+    history.push({
+      pathname: '/users',
+      search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+    })
+  }, [filter, currentPage]);
 
   const onPageChanged = (pageNumber: number) => {
     dispatch(getUsersThunk(pageNumber, pageSize, filter));
