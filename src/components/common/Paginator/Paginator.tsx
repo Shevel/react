@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Paginator.module.css';
 import '../../../assets/styles/buttons.css';
 import clNames from 'classnames';
+import { Button } from 'antd';
 
 type PaginatorPropsType = {
   totalItemsCount: number | null
@@ -27,10 +28,9 @@ const Paginator: React.FC<PaginatorPropsType> = ({ totalItemsCount, pageSize, on
     <div className={styles.pages}>
       {
         portionNumber > 1 &&
-        <button
-          className={clNames(styles.paginator_btn, 'btn')}
+        <Button
           onClick={() => { setPortionNumber(portionNumber - 1) }}
-        >prev</button>
+        >prev</Button>
       }
       {
         pages.filter(filteringPage => filteringPage >= leftLimit && filteringPage <= rightLimit)
@@ -48,10 +48,9 @@ const Paginator: React.FC<PaginatorPropsType> = ({ totalItemsCount, pageSize, on
       }
       {
         portionCount > portionNumber &&
-        <button
-          className={clNames(styles.paginator_btn, 'btn')}
+        <Button
           onClick={() => { setPortionNumber(portionNumber + 1) }}
-        >next</button>
+        >next</Button>
       }
     </div>
   )

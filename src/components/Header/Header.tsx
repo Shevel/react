@@ -4,33 +4,52 @@ import s from "./Header.module.css";
 import "../../assets/styles/buttons.css";
 import "../../assets/styles/buttons.css";
 import { NavLink } from "react-router-dom";
-type PropsType = {
-  isAuth: boolean
-  login: string | null
-  email: string | null
-  logout: () => void
-}
-export const Header: React.FC<PropsType> = (props) => {
+import { useDispatch, useSelector } from "react-redux";
+import { getIsAuth, getLogin } from "../../redux/authSelectors";
+import { logout } from "../../redux/authReducer";
+import { Button, Layout, Col, Row } from "antd";
+
+type PropsType = {}
+export const Header: React.FC<PropsType> = () => {
+  const { Header } = Layout;
+  const isAuth = useSelector(getIsAuth);
+  const login = useSelector(getLogin);
+  const dispatch = useDispatch();
+  const logoutCallback = () => {
+    dispatch(logout());
+  }
   return (
-    <header className={s.header}>
-      <img className={s.logo} src={Logo} alt="logo" />
-      <div>
-        {props.isAuth ? (
-          <div className={s.login_block}>
-            <div className={s.login_info}>
-              <p className={s.login_name}>{`Login: ${props.login}`}</p>
-              <span className={s.login_email}>{`Email: ${props.email}`}</span>
-            </div>
-            <button className="btn" onClick={props.logout}>
-              Logout
-            </button>
-          </div>
+    <Header>
+      <Row justify="space-between">
+        {isAuth ? (
+          <>
+            <Col>
+              <img className={s.logo} src={Logo} alt="logo" />
+            </Col>
+            <Col>
+              <div className={s.login_block}>
+                <div className={s.login_info}>
+                  <span className={s.login_name}>{`Login: ${login}`}</span>
+                </div>
+                <Button type='primary' onClick={logoutCallback}>
+                  Logout
+            </Button>
+              </div>
+            </Col>
+          </>
         ) : (
-            <NavLink className={s.login} to="/login">
-              <button className='btn'>Login</button>
-            </NavLink>
+            <>
+              <Col>
+                <img className={s.logo} src={Logo} alt="logo" />
+              </Col>
+              <Col>
+                <NavLink className={s.login} to="/login">
+                  <Button type='primary'>Login</Button>
+                </NavLink>
+              </Col>
+            </>
           )}
-      </div>
-    </header>
+      </Row>
+    </Header >
   );
 };

@@ -5,7 +5,7 @@
 .pagination_item {
   width: 20px;
   height: 20px;
-  background-color: #ede5bf;
+  background-color: #ffffffb9;
   border-radius: 50%;
   line-height: 17px;
   font-size: 13px;
@@ -18,7 +18,7 @@
 }
 .pagination_item.selected {
   font-weight: bold;
-  background-color: #ffffffb9;
+  background-color: #c0c0c0;
 }
 .pagination_item:hover {
   box-shadow: 0px 0px 8px 2px #0761cf;

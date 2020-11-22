@@ -8,6 +8,7 @@ import ProfileDataReduxForm from "../ProfileDataForm/ProfileDataForm";
 import addIcon from "../../../assets/icon/add.png";
 import editIcon from "../../../assets/icon/edit.svg";
 import { ContactsType, ProfileType } from "../../../types/types";
+import { Button } from "antd";
 type PropsType = {
   profile: ProfileType | null
   status: string
@@ -108,12 +109,13 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activat
   return (
     <div className={s.profile_data}>
       {isOwner && (
-        <button
-          className={`${s.activate_edit_btn} btn`}
+        <Button
+          shape="round"
+          className={`${s.activate_edit_btn}`}
           onClick={activateEditMode}
         >
           <img width={20} src={editIcon} alt="editIcon" />
-        </button>
+        </Button>
       )}
       <div className={s.about_me}>
         <b>About me:</b>

@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React from 'react';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { maxLengthCreator } from '../../../../utils/validators';
@@ -13,7 +14,7 @@ const PostForm: React.FC<InjectedFormProps<PostFormDataType, PropsType> & PropsT
   return (
     <form className={styles.newMessageForm} onSubmit={handleSubmit}>
       {createField<PostFormDataTypeKeys>('Enter new post text..', 'newPost', [maxLengthFiled300], Textarea, { type: 'text' })}
-      <button className='btn'>Add post</button>
+      <Button type='primary' onClick={handleSubmit}>Add post</Button>
     </form>
   );
 };

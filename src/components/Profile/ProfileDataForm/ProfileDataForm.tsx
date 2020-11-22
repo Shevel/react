@@ -3,6 +3,7 @@ import { InjectedFormProps, reduxForm } from "redux-form";
 import { createField, GetStringKeys, Input, Textarea } from '../../common/FormControls/FormControls';
 import '../../../assets/styles/buttons.css';
 import { ProfileType } from '../../../types/types';
+import { Button } from 'antd';
 
 type PropsType = {
   profile: ProfileType;
@@ -28,7 +29,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & Prop
           )
         })
       }
-      <div><button className='btn'>Save</button></div>
+      <div><Button type='primary' onClick={handleSubmit}>Save</Button></div>
     </form>
   )
 }

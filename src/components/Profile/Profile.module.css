@@ -10,9 +10,6 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 10px;
-  background-color: #ffffff3d;
-  margin: 10px;
   border-radius: 20px;
   position: relative;
 }

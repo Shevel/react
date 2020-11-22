@@ -1,28 +1,22 @@
 import React from 'react';
-import s from './Navbar.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import { Layout, Menu } from 'antd';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+
+const { Sider } = Layout;
 
 export const Navbar: React.FC = () => {
   return (
-    <nav className={s.nav}>
-      <div className={s.item}>
-        <NavLink to="/profile" activeClassName={s.active}>My Profile </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to="/dialogs" activeClassName={s.active}> Messages </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to="/news" activeClassName={s.active}> News </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to="/music" activeClassName={s.active}> Music </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to="/users" activeClassName={s.active}> Users </NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to="/settings" activeClassName={s.active}> Settings </NavLink>
-      </div>
-    </nav>
+    <Sider className="site-layout-background" width={200}>
+      <Menu
+        mode="inline"
+        style={{ height: '100%' }}
+      >
+        <Menu.Item key="1" icon={<UserOutlined />}><Link to="/profile">My Profile</Link></Menu.Item>
+        <Menu.Item key="2" icon={<NotificationOutlined />}><Link to="/dialogs">Messages</Link></Menu.Item>
+        <Menu.Item key="3" icon={<LaptopOutlined />}><Link to="/users">Users</Link></Menu.Item>
+      </Menu>
+    </Sider>
   )
 }

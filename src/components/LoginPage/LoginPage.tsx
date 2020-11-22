@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Redirect } from "react-router-dom";
 import { AppStateType } from "../../redux/redux-store";
+import { Button } from "antd";
 
 type LoginFormOwnPropsType = {
   captchaURL: string | null
@@ -29,7 +30,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps
       {captchaURL && <img className={styles.captcha} src={captchaURL} alt='captcha' />}
       {captchaURL && createField<LoginFormDataTypeKeys>('Symbols from captcha', 'captcha', [required], Input, { type: 'text' })}
       <div className={styles.btn}>
-        <button className='btn' type="submit">Sign In</button>
+        <Button type="primary" onClick={handleSubmit}>Sign In</Button>
       </div>
       {
         error && <div className={styles.summaryErrorBlock}>

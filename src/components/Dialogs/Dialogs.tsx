@@ -7,6 +7,7 @@ import { reduxForm, InjectedFormProps } from "redux-form";
 import { createField, Textarea } from "../common/FormControls/FormControls";
 import { maxLengthCreator } from "../../utils/validators";
 import { MessageType, DialogType } from '../../redux/dialogsReducer';
+import { Button } from "antd";
 
 type DialogsPropsType = {
   messages: Array<MessageType>
@@ -66,7 +67,7 @@ const DialogForm: React.FC<AllSampleFormProps> = ({ handleSubmit }) => {
         {createField<NewMessageFromValuesKeysType>('Enter message', 'textMessage', [maxLength300], Textarea, { type: 'text' })}
       </div>
 
-      <button className='btn'>Send Message</button>
+      <Button type='primary' onClick={handleSubmit}>Send</Button>
     </form>
   );
 };
