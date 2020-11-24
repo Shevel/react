@@ -12,8 +12,9 @@
   margin: 0;
   padding: 0;
   top: 13px;
-  left: 115px;
+  right: 5px;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .formControl input {
