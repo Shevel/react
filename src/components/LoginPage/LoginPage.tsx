@@ -44,7 +44,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps
 
 const LoginReduxForm = reduxForm<LoginFormDataType, LoginFormOwnPropsType>({ form: "login" })(LoginForm);
 
-export const LoginPage: React.FC = () => {
+const LoginPage: React.FC = () => {
   const captchaURL = useSelector((state: AppStateType) => state.auth.captchaURL);
   const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
   const dispatch = useDispatch();
@@ -68,5 +68,7 @@ export type LoginFormDataType = {
   rememberMe: boolean
   captcha: string
 }
+
 type LoginFormDataTypeKeys = GetStringKeys<LoginFormDataType>
 
+export default LoginPage;

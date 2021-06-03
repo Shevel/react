@@ -7,7 +7,7 @@ type FormControlsPropsType = {
   meta: WrappedFieldMetaProps
 };
 
-const FormControl: React.FC<FormControlsPropsType> = ({ meta: { touched, error }, children }) => {
+export const FormControl: React.FC<FormControlsPropsType> = ({ meta: { touched, error }, children }) => {
   const hasError = touched && error;
   return (
     <div

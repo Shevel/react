@@ -13,7 +13,7 @@ import '../../assets/styles/buttons.css';
 
 type PropsType = {};
 
-export const Header: React.FC<PropsType> = () => {
+const Header: React.FC<PropsType> = () => {
   const { Header } = Layout;
   const isAuth = useSelector(getIsAuth);
   const login = useSelector(getLogin);
@@ -56,3 +56,4 @@ export const Header: React.FC<PropsType> = () => {
     </Header>
   );
 };
+export default Header;

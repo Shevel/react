@@ -3,6 +3,8 @@ import React from 'react';
 import { Spin } from 'antd';
 import './spin.css';
 
-export const Preloader: React.FC = () => {
-  return <Spin className="spin" tip="Loading..." />
+const Preloader: React.FC = () => {
+  return <Spin className="spin" size="large"/>
 }
+
+export default Preloader;

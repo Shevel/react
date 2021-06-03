@@ -12,6 +12,7 @@ type InitialStateType = {
   isAuth: boolean;
   captchaURL: null | string;
 };
+
 type ActionTypes = InferActionsType<typeof actions>;
 type ThunkType = BaseThunkType<ActionTypes | FormAction>;
 
@@ -21,8 +22,9 @@ const initialState: InitialStateType = {
   login: null,
   isFetching: false,
   isAuth: false,
-  captchaURL: null,
+  captchaURL: null
 };
+
 export const authReducer = (
   state = initialState,
   action: ActionTypes
@@ -32,12 +34,13 @@ export const authReducer = (
     case 'SET_CAPTCHA':
       return {
         ...state,
-        ...action.payload,
+        ...action.payload
       };
     default:
       return state;
   }
 };
+
 const actions = {
   setAuthUserData: (
     id: number | null,
@@ -47,12 +50,12 @@ const actions = {
   ) => {
     return {
       type: 'SET_USER_DATA',
-      payload: { id, email, login, isAuth },
+      payload: { id, email, login, isAuth }
     } as const;
   },
   setCaptcha: (captchaURL: string | null) => {
     return { type: 'SET_CAPTCHA', payload: { captchaURL } } as const;
-  },
+  }
 };
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
@@ -62,29 +65,34 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
     dispatch(actions.setAuthUserData(id, email, login, true));
   }
 };
-export const login = (
-  email: string,
-  password: string,
-  rememberMe: boolean,
-  captcha: string
-): ThunkType => async (dispatch) => {
-  const loginData = await authAPI.login(email, password, rememberMe, captcha);
-  if (loginData.resultCode === ResultCode.Success) {
-    dispatch(getAuthUserData());
-    dispatch(actions.setCaptcha(null));
-  } else {
-    if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
-      dispatch(getCaptchaUrl());
+
+export const login =
+  (
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string
+  ): ThunkType =>
+  async (dispatch) => {
+    const loginData = await authAPI.login(email, password, rememberMe, captcha);
+    if (loginData.resultCode === ResultCode.Success) {
+      dispatch(getAuthUserData());
+      dispatch(actions.setCaptcha(null));
+    } else {
+      if (loginData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
+        dispatch(getCaptchaUrl());
+      }
+      const message =
+        loginData.messages.length > 0 ? loginData.messages[0] : 'some error';
+      dispatch(stopSubmit('login', { _error: message }));
     }
-    const message =
-      loginData.messages.length > 0 ? loginData.messages[0] : 'some error';
-    dispatch(stopSubmit('login', { _error: message }));
-  }
-};
+  };
+
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
   const captchaURL = await securityAPI.getCaptchaUrl();
   dispatch(actions.setCaptcha(captchaURL));
 };
+
 export const logout = (): ThunkType => async (dispatch) => {
   const logoutData = await authAPI.logout();
   if (logoutData.resultCode === ResultCode.Success) {

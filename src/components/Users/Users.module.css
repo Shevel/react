@@ -21,7 +21,7 @@
   transition: all 0.2s;
 }
 .user:hover {
-  box-shadow: 0px 0px 8px 2px #0761cf;
+  box-shadow: 0px 0px 5px -1px #0761cf;
 }
 .user_info {
   display: flex;

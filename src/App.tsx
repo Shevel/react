@@ -1,97 +1,135 @@
 import React from 'react';
-import 'antd/dist/antd.css';
-import { Provider, connect } from 'react-redux';
-import { AppStateType, store } from './redux/redux-store';
-import { Preloader } from './components/common/Preloader/Preloader';
-import { Header } from './components/Header/Header';
-import { BrowserRouter, Link, Route, Switch, withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router'
-import { LoginPage } from './components/LoginPage/LoginPage';
-import { News } from './components/News/News';
-import { Music } from './components/Music/Music';
-import { Settings } from './components/Settings/Settings';
+import { Layout } from 'antd';
 import { compose } from 'redux';
+import { Redirect } from 'react-router';
+import { Provider, connect } from 'react-redux';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
+
+import {
+  News,
+  Music,
+  Navbar,
+  Header,
+  Settings,
+  LoginPage,
+  Preloader,
+  UsersPage
+} from './components';
 import { initApp } from './redux/appReducer';
 import { withSuspense } from './hoc/withSuspense';
-import { UsersPage } from './components/Users/UsersPage';
+import { AppStateType, store } from './redux/redux-store';
 
-import { Layout } from 'antd';
-import { Navbar } from './components/Navbar/Navbar';
+import { ROUTES } from './constant/routes';
+
+import 'antd/dist/antd.css';
 
 const { Content, Footer } = Layout;
+const {
+  NEWS,
+  MUSIC,
+  LOGIN,
+  USERS,
+  DIALOGS,
+  PROFILE,
+  SETTINGS,
+  NOT_FOUND,
+  MY_PROFILE,
+} = ROUTES;
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(
+  () => import('./components/Dialogs/DialogsContainer')
+);
+const ProfileContainer = React.lazy(
+  () => import('./components/Profile/ProfileContainer')
+);
 
 const SuspendedProfile = withSuspense(ProfileContainer);
 const SuspendedDialogs = withSuspense(DialogsContainer);
 
 type MapPropsType = ReturnType<typeof mapStateToProps>;
 type DispatchPropsType = {
-  initApp: () => void
-}
+  initApp: () => void;
+};
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
   catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
     alert('Some Error in App (unhandledrejection).');
-  }
+  };
 
   componentDidMount() {
     this.props.initApp();
-    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
   }
   componentWillUnmount() {
-    window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    window.removeEventListener(
+      'unhandledrejection',
+      this.catchAllUnhandledErrors
+    );
   }
 
   render() {
     if (!this.props.initialized) {
-      return <Preloader />
+      return <Preloader />;
     }
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Header />
-        <Content style={{ padding: '0 50px' }}>
-          <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+        <Content>
+          <Layout className='site-layout-background'>
             <Navbar />
-            <Content style={{ padding: '0 50px', minHeight: 280, maxWidth: 850, margin: 'auto' }}>
+            <Content
+              style={{
+                padding: '20px 0',
+                minHeight: 'calc(100vh - 64px)',
+                maxWidth: 850,
+                margin: 'auto'
+              }}
+            >
               <Switch>
-                <Route exact path='/' render={() => <Redirect to='/login' />} />
-                <Route path='/dialogs' render={() => <SuspendedDialogs />} />
-                <Route path='/profile/:userId?' render={() => <SuspendedProfile />} />
-                <Route path='/users' render={() => <UsersPage />} />
-                <Route path='/login' render={() => <LoginPage />} />
-                <Route path='/news' component={News} />
-                <Route path='/music' component={Music} />
-                <Route path='/settings' component={Settings} />
-                <Route path='*' render={() => <div>404 not found</div>} />
+                <Route exact path='/' render={() => <Redirect to={MY_PROFILE} />} />
+                <Route path={DIALOGS} render={() => <SuspendedDialogs />} />
+                <Route path={PROFILE} render={() => <SuspendedProfile />} />
+                <Route path={USERS} render={() => <UsersPage />} />
+                <Route path={LOGIN} render={() => <LoginPage />} />
+                <Route path={NEWS} component={News} />
+                <Route path={MUSIC} component={Music} />
+                <Route path={SETTINGS} component={Settings} />
+                <Route
+                  path={NOT_FOUND}
+                  render={() => <div>404 not found</div>}
+                />
               </Switch>
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: 'left', background: '#001529', color: '#fff' }}>2021 Created by Vladislav Shevel</Footer>
+        <Footer
+          style={{ textAlign: 'left', background: '#001529', color: '#fff' }}
+        >
+          2021 Created by Vladislav Shevel
+        </Footer>
       </Layout>
     );
   }
 }
 const mapStateToProps = (state: AppStateType) => {
   return {
-    initialized: state.app.initialized,
-  }
-}
+    initialized: state.app.initialized
+  };
+};
 
 const AppContainer = compose<React.ComponentType>(
   withRouter,
-  connect(mapStateToProps, { initApp }))(App);
+  connect(mapStateToProps, { initApp })
+)(App);
 
 const MainApplication: React.FC = () => {
   return (
     <BrowserRouter>
-      <Provider store={store} >
+      <Provider store={store}>
         <AppContainer />
       </Provider>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default MainApplication;
