@@ -1,4 +1,5 @@
 .login_form {
+  width: 100%;
   position: relative;
 }
 .summaryErrorBlock {
@@ -16,14 +17,13 @@
   text-decoration: underline;
 }
 .remember_me {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   white-space: nowrap;
 }
 .login {
-  font-style: italic;
-  font-size: 20px;
+  font-size: 24px;
   color: #646464;
   font-weight: 500;
 }
@@ -35,11 +35,13 @@
   background-color: #ffffff5e;
   border: 2px solid #c4c4c4;
   border-radius: 10px;
-  width: 50%;
-  min-width: max-content;
-  padding: 10px;
+  width: 35%;
+  padding: 30px 60px;
   margin: 0 auto;
 }
 .captcha {
   margin-top: 15px;
+}
+.mb_20 {
+  margin-bottom: 20px;
 }

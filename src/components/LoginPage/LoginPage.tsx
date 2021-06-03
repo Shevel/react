@@ -9,6 +9,7 @@ import { login } from "../../redux/authReducer";
 import { Redirect } from "react-router-dom";
 import { AppStateType } from "../../redux/redux-store";
 import { Button } from "antd";
+import classnames from 'classnames';
 
 type LoginFormOwnPropsType = {
   captchaURL: string | null
@@ -17,13 +18,13 @@ type LoginFormOwnPropsType = {
 const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = ({ handleSubmit, error, captchaURL }) => {
   return (
     <form className={styles.login_form} onSubmit={handleSubmit}>
-      <div className={styles.login_input}>
+      <div className={classnames(styles.login_input, styles.mb_20)}>
         {createField<LoginFormDataTypeKeys>('Email', 'email', [required], Input, { type: 'text' })}
       </div>
-      <div className={styles.login_input}>
+      <div className={classnames(styles.login_input, styles.mb_20)}>
         {createField<LoginFormDataTypeKeys>('Password', 'password', [required], Input, { type: 'password' })}
       </div>
-      <div className={styles.remember_me}>
+      <div className={classnames(styles.remember_me, styles.mb_20)}>
         <span>Remember me</span>
         {createField<LoginFormDataTypeKeys>(undefined, 'rememberMe', [], Input, { type: 'checkbox' })}
       </div>
@@ -55,7 +56,7 @@ export const LoginPage: React.FC = () => {
   }
   return (
     <div className={styles.login_page}>
-      <p className={styles.login}>Login Form</p>
+      <p className={styles.login}>Sign In</p>
       <LoginReduxForm onSubmit={onSubmit} captchaURL={captchaURL} />
     </div>
   );

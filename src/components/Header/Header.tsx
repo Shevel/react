@@ -1,15 +1,18 @@
-import React from "react";
-import Logo from "./logo.png";
-import s from "./Header.module.css";
-import "../../assets/styles/buttons.css";
-import "../../assets/styles/buttons.css";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsAuth, getLogin } from "../../redux/authSelectors";
-import { logout } from "../../redux/authReducer";
-import { Button, Layout, Col, Row } from "antd";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Button, Layout, Col, Row, Avatar } from 'antd';
 
-type PropsType = {}
+import Logo from './logo.png';
+import s from './Header.module.css';
+import { logout } from '../../redux/authReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsAuth, getLogin } from '../../redux/authSelectors';
+
+import '../../assets/styles/buttons.css';
+import '../../assets/styles/buttons.css';
+
+type PropsType = {};
+
 export const Header: React.FC<PropsType> = () => {
   const { Header } = Layout;
   const isAuth = useSelector(getIsAuth);
@@ -17,39 +20,39 @@ export const Header: React.FC<PropsType> = () => {
   const dispatch = useDispatch();
   const logoutCallback = () => {
     dispatch(logout());
-  }
+  };
   return (
     <Header>
-      <Row justify="space-between">
+      <Row justify='space-between' align='middle'>
         {isAuth ? (
           <>
             <Col>
-              <img className={s.logo} src={Logo} alt="logo" />
+              <img className={s.logo} src={Logo} alt='logo' />
             </Col>
-            <Col>
+            <Col flex='align(-self): center'>
               <div className={s.login_block}>
                 <div className={s.login_info}>
-                  <span className={s.login_name}>{`Login: ${login}`}</span>
+                  <Avatar className={s.login_name}>{login?.slice(0, 1)}</Avatar>
                 </div>
                 <Button type='primary' onClick={logoutCallback}>
                   Logout
-            </Button>
+                </Button>
               </div>
             </Col>
           </>
         ) : (
-            <>
-              <Col>
-                <img className={s.logo} src={Logo} alt="logo" />
-              </Col>
-              <Col>
-                <NavLink className={s.login} to="/login">
-                  <Button type='primary'>Login</Button>
-                </NavLink>
-              </Col>
-            </>
-          )}
+          <>
+            <Col>
+              <img className={s.logo} src={Logo} alt='logo' />
+            </Col>
+            <Col>
+              <NavLink className={s.login} to='/login'>
+                <Button type='primary'>Login</Button>
+              </NavLink>
+            </Col>
+          </>
+        )}
       </Row>
-    </Header >
+    </Header>
   );
 };

@@ -49,12 +49,12 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
       return <Preloader />
     }
     return (
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header />
         <Content style={{ padding: '0 50px' }}>
           <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
             <Navbar />
-            <Content style={{ padding: '0 50px', minHeight: 280 }}>
+            <Content style={{ padding: '0 50px', minHeight: 280, maxWidth: 850, margin: 'auto' }}>
               <Switch>
                 <Route exact path='/' render={() => <Redirect to='/login' />} />
                 <Route path='/dialogs' render={() => <SuspendedDialogs />} />
@@ -69,7 +69,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>2020 Created by Vladislav Shevel</Footer>
+        <Footer style={{ textAlign: 'left', background: '#001529', color: '#fff' }}>2021 Created by Vladislav Shevel</Footer>
       </Layout>
     );
   }

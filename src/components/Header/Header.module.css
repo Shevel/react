@@ -26,9 +26,7 @@
 }
 
 .login_name {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 5px 0;
+  background-color: #ee161f;
 }
 .login_name,
 .login_email {

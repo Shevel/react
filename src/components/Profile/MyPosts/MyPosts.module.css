@@ -7,17 +7,18 @@ h3 {
 }
 .posts textarea {
   width: 100%;
-  border-radius: 3px;
+  border-radius: 8px;
   margin-bottom: 5px;
   transition: all 0.2s;
   resize: none;
   position: relative;
   background-color: #ffffffb5;
-  border: none;
+  border: 1px solid #ccc;
   outline-color: #c4c4c4;
+  display: flex;
+  padding: 10px 20px;
 }
 .newMessageForm {
-  height: 90px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
