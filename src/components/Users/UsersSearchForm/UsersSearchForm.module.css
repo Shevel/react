@@ -1,0 +1,38 @@
+.formFilter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterSelect {
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.filterSelect:focus {
+  outline: #ccc solid 1px;
+}
+
+.nameFilter {
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  margin: 0 15px;
+  border-radius: 2px;
+}
+
+.nameFilterContainer {
+  position: relative;
+}
+
+.nameFilterError {
+  margin: 0 15px;
+  position: absolute;
+  bottom: -20px;
+  left: 0px;
+  color: tomato;
+}
+
+.nameFilter:focus {
+  outline: #ccc solid 1px;
+}

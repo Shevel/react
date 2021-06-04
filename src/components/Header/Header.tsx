@@ -33,7 +33,7 @@ const Header: React.FC<PropsType> = () => {
                 <div className={s.login_info}>
                   <Avatar className={s.login_name}>{login?.slice(0, 1)}</Avatar>
                 </div>
-                <Button type='primary' onClick={logoutCallback}>
+                <Button onClick={logoutCallback}>
                   Logout
                 </Button>
               </div>

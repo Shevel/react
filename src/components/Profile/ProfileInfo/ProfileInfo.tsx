@@ -1,33 +1,32 @@
-import React, { useState } from "react";
-import { Button } from "antd";
+import React, { useState } from 'react';
+import { Tooltip, Button } from 'antd';
+import { EditOutlined, FileAddOutlined } from '@ant-design/icons';
 
-import { Preloader } from "../../";
-import { ContactsType, ProfileType } from "../../../types/types";
-import ProfileDataReduxForm from "../ProfileDataForm/ProfileDataForm";
-import { ProfileStatusHooks } from "../ProfileStatus/ProfileStatusHooks";
+import { Preloader } from '../../';
+import { ContactsType, ProfileType } from '../../../types/types';
+import ProfileDataReduxForm from '../ProfileDataForm/ProfileDataForm';
+import { ProfileStatusHooks } from '../ProfileStatus/ProfileStatusHooks';
 
-import addIcon from "../../../assets/icon/add.png";
-import editIcon from "../../../assets/icon/edit.svg";
-import defaultAvatar from "../../../assets/image/noavatar.jpg";
+import defaultAvatar from '../../../assets/image/noavatar.jpg';
 
-import s from "../Profile.module.css";
-import "../../../assets/styles/buttons.css";
+import s from '../Profile.module.css';
+import '../../../assets/styles/buttons.css';
 
 type PropsType = {
-  profile: ProfileType | null
-  status: string
-  updateStatus: (status: string) => void
-  isOwner: boolean
-  saveMainAvatar: (file: File) => void
-  saveProfile: (formData: ProfileType) => Promise<void>
-}
+  profile: ProfileType | null;
+  status: string;
+  updateStatus: (status: string) => void;
+  isOwner: boolean;
+  saveMainAvatar: (file: File) => void;
+  saveProfile: (formData: ProfileType) => Promise<void>;
+};
 export const ProfileInfo: React.FC<PropsType> = ({
   profile,
   status,
   isOwner,
   updateStatus,
   saveMainAvatar,
-  saveProfile,
+  saveProfile
 }) => {
   const [editMode, setEditMode] = useState(false);
 
@@ -49,34 +48,6 @@ export const ProfileInfo: React.FC<PropsType> = ({
   return (
     <>
       <div className={s.profile}>
-        <div className={s.ava_block}>
-          <div className={s.ava_image}>
-            <img
-              className={s.avatar}
-              src={
-                profile.photos?.large || profile.photos?.small || defaultAvatar
-              }
-              alt="ava"
-            />
-            {isOwner && (
-              <div className={s.ava_uploader}>
-                <input
-                  className={s.upload_ava}
-                  onChange={onAvaSelected}
-                  type="file"
-                  id="file"
-                />
-                <label
-                  className={s.ava_label}
-                  title="Change and upload avatar"
-                  htmlFor="file"
-                >
-                  Change avatar <img src={addIcon} alt="addIcon" height="20" />
-                </label>
-              </div>
-            )}
-          </div>
-        </div>
         <div className={s.info}>
           <div className={s.full_name}>{profile.fullName}</div>
           <ProfileStatusHooks
@@ -91,50 +62,91 @@ export const ProfileInfo: React.FC<PropsType> = ({
               profile={profile}
             />
           ) : (
-              <ProfileData
-                activateEditMode={() => {
-                  setEditMode(true);
-                }}
-                profile={profile}
-                isOwner={isOwner}
-              />
+            <ProfileData
+              activateEditMode={() => {
+                setEditMode(true);
+              }}
+              profile={profile}
+              isOwner={isOwner}
+            />
+          )}
+        </div>
+        <div className={s.ava_block}>
+          <div className={s.ava_image}>
+            <img
+              className={s.avatar}
+              src={
+                profile.photos?.large || profile.photos?.small || defaultAvatar
+              }
+              alt='ava'
+            />
+            {isOwner && (
+              <div className={s.ava_uploader}>
+                <input
+                  className={s.upload_ava}
+                  onChange={onAvaSelected}
+                  type='file'
+                  id='file'
+                />
+                <Tooltip placement='bottom' title='Change and upload avatar'>
+                  <label className={s.ava_label} htmlFor='file'>
+                    <FileAddOutlined
+                      style={{
+                        fontSize: '18px',
+                        color: 'lightcyan',
+                        marginBottom: 15
+                      }}
+                    />
+                  </label>
+                </Tooltip>
+              </div>
             )}
+          </div>
         </div>
       </div>
     </>
   );
 };
 type ProfileDataPropsType = {
-  profile: ProfileType
-  isOwner: boolean
-  activateEditMode: () => void
-}
-const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activateEditMode }) => {
+  profile: ProfileType;
+  isOwner: boolean;
+  activateEditMode: () => void;
+};
+const ProfileData: React.FC<ProfileDataPropsType> = ({
+  profile,
+  isOwner,
+  activateEditMode
+}) => {
   return (
     <div className={s.profile_data}>
       {isOwner && (
-        <Button
-          shape="round"
-          className={`${s.activate_edit_btn}`}
-          onClick={activateEditMode}
-        >
-          <img width={20} src={editIcon} alt="editIcon" />
-        </Button>
+        <Tooltip placement='left' title='Edit'>
+          <Button
+            shape='round'
+            className={`${s.activate_edit_btn}`}
+            onClick={activateEditMode}
+            icon={<EditOutlined />}
+          />
+        </Tooltip>
       )}
-      <div className={s.about_me}>
-        <b>About me:</b>
-        {` ${profile.aboutMe}`}
-      </div>
-      <div className={s.about_me}>
-        <b>My skills:</b>
-        {` ${profile.lookingForAJobDescription}`}
-      </div>
-      <label className={s.about_me} htmlFor="lookingForaJob">
+      {profile.aboutMe && (
+        <div className={s.about_me}>
+          <b>About me:</b>
+          <i>{` ${profile.aboutMe}`}</i>
+        </div>
+      )}
+      {profile.lookingForAJobDescription !== 'null' && (
+        <div className={s.about_me}>
+          <b>My skills:</b>
+          {` ${profile.lookingForAJobDescription}`}
+        </div>
+      )}
+      <label className={s.about_me} htmlFor='lookingForaJob'>
         <b>Looking for a Job</b>
       </label>
       <input
-        id="lookingForaJob"
-        type="checkbox"
+        id='lookingForaJob'
+        type='checkbox'
         readOnly
         checked={profile.lookingForAJob}
       />
@@ -151,14 +163,19 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activat
   );
 };
 type ContactPropsType = {
-  contactTitle: string
-  contactValue: string
-}
-const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
-  return (
+  contactTitle: string;
+  contactValue: string;
+};
+const Contact: React.FC<ContactPropsType> = ({
+  contactTitle,
+  contactValue
+}) => {
+  return contactValue.length ? (
     <div className={s.contact}>
-      <div className={s.contact_title}>{`My ${contactTitle}:`}</div>
-      <div className={s.contact_value}>{` ${contactValue || ""}`}</div>
+      <div className={s.contact_title}>{`${contactTitle}:`}</div>
+      <div className={s.contact_value}>{` ${contactValue}`}</div>
     </div>
+  ) : (
+    <></>
   );
 };

@@ -7,28 +7,27 @@
 }
 .profile {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   border-radius: 20px;
   position: relative;
 }
 .avatar {
-  border-radius: 8px;
+  border-radius: 50%;
   max-width: 100%;
 }
 .info {
-  margin-left: 20px;
   flex-basis: 50%;
+  margin-right: 45px;
 }
 .full_name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   color: #251313;
   text-transform: capitalize;
 }
 .about_me {
-  font-size: 12px;
-  font-style: italic;
+  font-size: 16px;
   font-weight: 400;
   color: #696969;
   margin-bottom: 5px;
@@ -37,9 +36,9 @@
   cursor: pointer;
   transition: all 0.2s;
   line-height: 13px;
-  font-size: 13px;
+  font-size: 16px;
+  padding: 5px 0;
   margin: 0;
-  padding: 0;
 }
 .status:hover {
   border-radius: 2px;
@@ -56,10 +55,9 @@
 }
 .ava_uploader {
   text-align: center;
-  background-color: #595959a3;
+  background: linear-gradient(0deg, #595959ea 0%, #00000000 100%);
   position: absolute;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 50%;
   cursor: pointer;
   opacity: 0;
   width: 100%;
@@ -73,21 +71,21 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 30px;
+  align-items: flex-end;
+  height: 200px;
 }
 .ava_block:hover .ava_uploader {
   opacity: 1;
 }
 .contact_title {
   flex-basis: 30%;
-  margin-left: 10px;
-  font-size: 14px;
-  color: #5a86ab;
+  font-size: 18px;
+  color: #183349;
   font-weight: 500;
+  text-transform: capitalize;
 }
 .contact_value {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   flex-basis: 70%;
   text-align: right;
@@ -99,11 +97,15 @@
   border-top: 1px solid #c4c4c4;
   padding: 10px 0;
   margin-top: 5px;
+  position: relative;
 }
 .activate_edit_btn {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: -60px;
+  right: 0;
+  padding: 4px 7px;
+  font-size: 14px;
+  border-radius: 50%;
 }
 .contact {
   display: flex;

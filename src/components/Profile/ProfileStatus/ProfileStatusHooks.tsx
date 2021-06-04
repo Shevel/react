@@ -29,9 +29,9 @@ export const ProfileStatusHooks: React.FC<ProfileStatusPropsType> = (props) => {
     <>
       {!editMode && (
         <div>
-          <span className={styles.status} onClick={activateEditMode}>
+          <p className={styles.status} onClick={activateEditMode}>
             {props.status || "Set status.."}
-          </span>
+          </p>
         </div>
       )}
       {editMode && (

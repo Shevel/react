@@ -30,7 +30,6 @@ const MyPosts: React.FC<MapPropsType & MapDispatchType> = (props) => {
 
   return (
     <div className={styles.posts}>
-      <h3 className={styles.header}>My Posts</h3>
       <PostReduxFrom onSubmit={onSubmitPost} />
       {postElements}
     </div>
