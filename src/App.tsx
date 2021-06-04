@@ -79,9 +79,9 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             <Navbar />
             <Content
               style={{
-                padding: '20px 0',
+                padding: '20px 80px',
                 minHeight: 'calc(100vh - 64px)',
-                maxWidth: 850,
+                maxWidth: 1100,
                 margin: 'auto'
               }}
             >

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { Users } from './Users';
-import { getIsFetching } from '../../redux/usersSelectors';
 import { Preloader } from '../index';
+import { getIsFetching } from '../../redux/usersSelectors';
 
 
 type UserPagePropsType = {}

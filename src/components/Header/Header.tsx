@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsAuth, getLogin } from '../../redux/authSelectors';
 
 import '../../assets/styles/buttons.css';
-import '../../assets/styles/buttons.css';
 
 type PropsType = {};
 

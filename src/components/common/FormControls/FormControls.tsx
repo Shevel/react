@@ -1,17 +1,24 @@
 import React from 'react';
-import styles from './FormControls.module.css';
 import { Field, WrappedFieldMetaProps, WrappedFieldProps } from 'redux-form';
+
 import { FieldValidatorType } from '../../../utils/validators';
 
+import styles from './FormControls.module.css';
+
 type FormControlsPropsType = {
-  meta: WrappedFieldMetaProps
+  meta: WrappedFieldMetaProps;
 };
 
-export const FormControl: React.FC<FormControlsPropsType> = ({ meta: { touched, error }, children }) => {
+export const FormControl: React.FC<FormControlsPropsType> = ({
+  meta: { touched, error },
+  children
+}) => {
   const hasError = touched && error;
   return (
     <div
-      className={`${styles.textareaContainer} ${styles.formControl} ${hasError ? styles.error : ''}`}
+      className={`${styles.textareaContainer} ${styles.formControl} ${
+        hasError ? styles.error : ''
+      }`}
     >
       {children}
       <div>{hasError && <span>{error}</span>}</div>
@@ -27,6 +34,7 @@ export const Textarea: React.FC<WrappedFieldProps> = (props) => {
     </FormControl>
   );
 };
+
 export const Input: React.FC<WrappedFieldProps> = (props) => {
   const { input, meta, ...restProps } = props;
   return (
@@ -51,6 +59,7 @@ export function createField<FormKeysType extends string>(
       validate={validators}
       {...props}
     />
-  )
-};
-export type GetStringKeys<T> = Extract<keyof T, string>
+  );
+}
+
+export type GetStringKeys<T> = Extract<keyof T, string>;

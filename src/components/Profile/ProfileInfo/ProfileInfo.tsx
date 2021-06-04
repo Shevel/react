@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import defaultAvatar from "../../../assets/image/noavatar.jpg";
-import s from "../Profile.module.css";
-import "../../../assets/styles/buttons.css";
+import { Button } from "antd";
+
 import { Preloader } from "../../";
-import { ProfileStatusHooks } from "../ProfileStatus/ProfileStatusHooks";
+import { ContactsType, ProfileType } from "../../../types/types";
 import ProfileDataReduxForm from "../ProfileDataForm/ProfileDataForm";
+import { ProfileStatusHooks } from "../ProfileStatus/ProfileStatusHooks";
+
 import addIcon from "../../../assets/icon/add.png";
 import editIcon from "../../../assets/icon/edit.svg";
-import { ContactsType, ProfileType } from "../../../types/types";
-import { Button } from "antd";
+import defaultAvatar from "../../../assets/image/noavatar.jpg";
+
+import s from "../Profile.module.css";
+import "../../../assets/styles/buttons.css";
+
 type PropsType = {
   profile: ProfileType | null
   status: string

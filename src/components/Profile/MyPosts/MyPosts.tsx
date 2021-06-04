@@ -1,9 +1,11 @@
 import React from "react";
+
+import { Post } from "./Post/Post";
+import { PostType } from "../../../types/types";
+import PostReduxFrom, { PostFormDataType } from './AddPostForm/AddPostForm';
+
 import styles from "./MyPosts.module.css";
 import '../../../assets/styles/buttons.css';
-import { Post } from "./Post/Post";
-import PostReduxFrom, { PostFormDataType } from './AddPostForm/AddPostForm';
-import { PostType } from "../../../types/types";
 
 export type MapPropsType = {
   postsData: Array<PostType>

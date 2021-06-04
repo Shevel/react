@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+
 import { Preloader } from '../components';
 
 export function withSuspense<ComponentProps>(Component: React.ComponentType<ComponentProps>) {
