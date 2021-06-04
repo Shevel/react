@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import styles from "../Profile.module.css";
-type ProfileStatusPropsType = {
-  status: string
-  isOwner: boolean
-  updateStatus: (status: string) => void
+import React, { useState, useEffect } from 'react';
 
-}
+import styles from '../Profile.module.css';
+
+type ProfileStatusPropsType = {
+  status: string;
+  isOwner: boolean;
+  updateStatus: (status: string) => void;
+};
+
 export const ProfileStatusHooks: React.FC<ProfileStatusPropsType> = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
@@ -30,7 +32,7 @@ export const ProfileStatusHooks: React.FC<ProfileStatusPropsType> = (props) => {
       {!editMode && (
         <div>
           <p className={styles.status} onClick={activateEditMode}>
-            {props.status || "Set status.."}
+            {props.status || 'Set status..'}
           </p>
         </div>
       )}
