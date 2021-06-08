@@ -62,17 +62,16 @@ export const Users: React.FC<UsersPropsType> = () => {
             : false
       };
     }
-    debugger;
     dispatch(getUsersThunk(actualPage, pageSize, actualFilter));
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, dispatch, history.location.search, pageSize]);
 
   useEffect(() => {
-    debugger;
     history.push({
       pathname: '/users',
       search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
     });
-  }, [filter, currentPage]);
+  }, [filter, currentPage, history]);
 
   const onPageChanged = (pageNumber: number) => {
     dispatch(getUsersThunk(pageNumber, pageSize, filter));

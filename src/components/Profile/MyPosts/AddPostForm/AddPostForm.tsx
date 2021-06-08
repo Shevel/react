@@ -13,7 +13,7 @@ const PostForm: React.FC<InjectedFormProps<PostFormDataType, PropsType> & PropsT
   const { handleSubmit } = props;
   return (
     <form className={styles.newMessageForm} onSubmit={handleSubmit}>
-      {createField<PostFormDataTypeKeys>('Enter new post text..', 'newPost', [maxLengthFiled300], Textarea, { type: 'text' })}
+      {createField<PostFormDataTypeKeys>('Enter new post text..', 'newPost', [maxLengthFiled300], Textarea, { type: 'text', rows: 1 })}
       <Button type='primary' onClick={handleSubmit}>Add post</Button>
     </form>
   );

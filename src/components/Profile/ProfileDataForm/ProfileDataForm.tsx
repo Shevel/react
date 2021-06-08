@@ -12,7 +12,6 @@ import { ProfileType } from '../../../types/types';
 
 import s from './ProfileDataForm.module.css';
 import '../../../assets/styles/buttons.css';
-import classNames from 'classnames';
 
 type PropsType = {
   profile: ProfileType;

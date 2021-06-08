@@ -3,16 +3,20 @@ import {
   combineReducers,
   applyMiddleware,
   compose,
-  Action,
+  Action
 } from 'redux';
-import { profileReducer } from './profileReducer';
-import { dialogsReducer } from './dialogsReducer';
-import { sidebarReducer } from './sidebarReducer';
-import { usersReducer } from './usersReducer';
-import { authReducer } from './authReducer';
-import { appReducer } from './appReducer';
 import { reducer as formReducer } from 'redux-form';
 import thunkMiddleware, { ThunkAction } from 'redux-thunk';
+
+import {
+  profileReducer,
+  dialogsReducer,
+  sidebarReducer,
+  usersReducer,
+  authReducer,
+  appReducer,
+  chatReducer
+} from './index';
 
 type RootReducerType = typeof rootReducer;
 
@@ -37,8 +41,9 @@ const rootReducer = combineReducers({
   sidebar: sidebarReducer,
   usersPage: usersReducer,
   auth: authReducer,
+  chat: chatReducer,
   app: appReducer,
-  form: formReducer,
+  form: formReducer
 });
 //@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

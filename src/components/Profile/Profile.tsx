@@ -30,6 +30,7 @@ export const Profile: React.FC<PropsType> = ({
         saveMainAvatar={saveMainAvatar}
         saveProfile={saveProfile}
       />
+      <hr/>
       <MyPostsContainer />
     </div>
   );

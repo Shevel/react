@@ -23,7 +23,7 @@ const User: React.FC<PropsType> = ({
   return (
     <div className={styles.user}>
       <span className={styles.user_avaBlock}>
-        <div>
+        <div style={{ textAlign: "center" }}>
           <NavLink to={`/profile/${user.id}`}>
             <img
               className={styles.avatar}
@@ -36,7 +36,7 @@ const User: React.FC<PropsType> = ({
             />
           </NavLink>
         </div>
-        <div>
+        <div style={{ textAlign: "center" }}>
           {user.followed ? (
             <button
               disabled={followingInProgress.some((id) => id === user.id)}

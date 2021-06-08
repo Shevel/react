@@ -170,7 +170,7 @@ const Contact: React.FC<ContactPropsType> = ({
   contactTitle,
   contactValue
 }) => {
-  return contactValue.length ? (
+  return contactValue && contactValue.length ? (
     <div className={s.contact}>
       <div className={s.contact_title}>{`${contactTitle}:`}</div>
       <div className={s.contact_value}>{` ${contactValue}`}</div>

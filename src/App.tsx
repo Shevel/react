@@ -6,6 +6,7 @@ import { Provider, connect } from 'react-redux';
 import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 
 import {
+  Chat,
   News,
   Music,
   Navbar,
@@ -13,7 +14,7 @@ import {
   Settings,
   LoginPage,
   Preloader,
-  UsersPage
+  UsersPage,
 } from './components';
 import { initApp } from './redux/appReducer';
 import { withSuspense } from './hoc/withSuspense';
@@ -25,6 +26,7 @@ import 'antd/dist/antd.css';
 
 const { Content, Footer } = Layout;
 const {
+  CHAT,
   NEWS,
   MUSIC,
   LOGIN,
@@ -87,6 +89,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             >
               <Switch>
                 <Route exact path='/' render={() => <Redirect to={MY_PROFILE} />} />
+                <Route path={CHAT} component={Chat} />
                 <Route path={DIALOGS} render={() => <SuspendedDialogs />} />
                 <Route path={PROFILE} render={() => <SuspendedProfile />} />
                 <Route path={USERS} render={() => <UsersPage />} />
@@ -103,7 +106,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
           </Layout>
         </Content>
         <Footer
-          style={{ textAlign: 'left', background: '#001529', color: '#fff' }}
+          style={{ textAlign: 'center', background: '#001529', color: '#fff' }}
         >
           2021 Created by Vladislav Shevel
         </Footer>

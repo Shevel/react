@@ -20,53 +20,51 @@ type FormType = {
   friend: FriendFormType;
 };
 
-const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
-  const filter = useSelector(getUsersFilter);
-  const submit = (
-    values: FormType,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
-  ) => {
-    const filter: FilterType = {
-      term: values.term.trim(),
-      friend:
-        values.friend === 'null'
-          ? null
-          : values.friend === 'true'
-          ? true
-          : false
+const UsersSearchForm: React.FC<PropsType> = React.memo(
+  ({ onFilterChanged }) => {
+    const filter = useSelector(getUsersFilter);
+    const submit = (
+      values: FormType,
+      { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+    ) => {
+      const filter: FilterType = {
+        term: values.term.trim(),
+        friend:
+          values.friend === 'null'
+            ? null
+            : values.friend === 'true'
+            ? true
+            : false
+      };
+      onFilterChanged(filter);
+      setSubmitting(false);
     };
-    props.onFilterChanged(filter);
-    setSubmitting(false);
-  };
 
-  return (
-    <Formik
-      initialValues={{
-        term: filter.term,
-        friend: String(filter.friend) as FriendFormType
-      }}
-      enableReinitialize
-      onSubmit={submit}
-    >
-      {({ isSubmitting }) => (
-        <Form className={s.formFilter}>
-          <Field className={s.filterSelect} name='friend' as='select'>
-            <option value='null'>All</option>
-            <option value='true'>Followed</option>
-            <option value='false'>Unfollowed</option>
-          </Field>
-          <Field
-            className={s.nameFilter}
-            type='text'
-            name='term'
-          />
-          <Button htmlType='submit' disabled={isSubmitting}>
-            Search <SearchOutlined />
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  );
-});
+    return (
+      <Formik
+        initialValues={{
+          term: filter.term,
+          friend: String(filter.friend) as FriendFormType
+        }}
+        enableReinitialize
+        onSubmit={submit}
+      >
+        {({ isSubmitting }) => (
+          <Form className={s.formFilter}>
+            <Field className={s.filterSelect} name='friend' as='select'>
+              <option value='null'>All</option>
+              <option value='true'>Followed</option>
+              <option value='false'>Unfollowed</option>
+            </Field>
+            <Field className={s.nameFilter} type='text' name='term' />
+            <Button htmlType='submit' disabled={isSubmitting}>
+              Search <SearchOutlined />
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    );
+  }
+);
 
 export default UsersSearchForm;

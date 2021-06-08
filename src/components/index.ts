@@ -1,3 +1,4 @@
+export * from './Chat';
 export * from './News';
 export * from './Music';
 export * from './Users';

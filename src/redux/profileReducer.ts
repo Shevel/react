@@ -8,9 +8,9 @@ import { ResultCode } from '../api/api';
 type InitialStateType = typeof initialState;
 const initialState = {
   postsData: [
-    { id: 1, string: 'Ho-ho-ho!', likesCount: 5 },
-    { id: 2, string: "Cool! What's up?", likesCount: 7 },
-    { id: 3, string: 'Yo!!', likesCount: 9 },
+    // { id: 1, string: 'Ho-ho-ho!', likesCount: 5 },
+    // { id: 2, string: "Cool! What's up?", likesCount: 7 },
+    // { id: 3, string: 'Yo!!', likesCount: 9 },
   ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: '',
@@ -92,10 +92,12 @@ export const getUserProfile = (userId: number): ThunkType => async (
   const profile = await profileAPI.getProfile(userId);
   dispatch(actions.setUserProfile(profile));
 };
+
 export const getStatus = (userId: number): ThunkType => async (dispatch) => {
   const status = await profileAPI.getStatus(userId);
   dispatch(actions.setStatus(status));
 };
+
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
   try {
     const response = await profileAPI.updateStatus(status);
@@ -106,12 +108,14 @@ export const updateStatus = (status: string): ThunkType => async (dispatch) => {
     alert(error);
   }
 };
+
 export const saveMainAvatar = (file: File): ThunkType => async (dispatch) => {
   const response = await profileAPI.saveMainAvatar(file);
   if (response.resultCode === ResultCode.Success) {
     dispatch(actions.saveMainAvatarSuccess(response.data));
   }
 };
+
 export const saveProfile = (profile: ProfileType): ThunkType => async (
   dispatch,
   getState

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Layout, Col, Row, Avatar } from 'antd';
 
-import Logo from './logo.png';
+import Logo from './logo192.png';
 import s from './Header.module.css';
 import { logout } from '../../redux/authReducer';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,3 +1,6 @@
+.posts {
+  margin-top: 45px;
+}
 .posts textarea:focus,
 .posts textarea:hover {
   background-color: #f6f6f6;

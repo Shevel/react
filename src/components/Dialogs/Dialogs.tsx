@@ -64,7 +64,7 @@ const DialogForm: React.FC<AllSampleFormProps> = ({ handleSubmit }) => {
   return (
     <form className={styles.sendMessageForm} onSubmit={handleSubmit}>
       <div className={styles.textarea}>
-        {createField<NewMessageFromValuesKeysType>('Enter message', 'textMessage', [maxLength300], Textarea, { type: 'text' })}
+        {createField<NewMessageFromValuesKeysType>('Enter message', 'textMessage', [maxLength300], Textarea, { type: 'text', className: styles.enterMessage, rows: 1 })}
       </div>
 
       <Button type='primary' onClick={handleSubmit}>Send</Button>
