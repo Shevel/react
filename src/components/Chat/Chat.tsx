@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Input } from 'antd';
 import { reduxForm } from 'redux-form';
 
-import s from './Chat.module.css';
 import noava from '../../assets/image/noavatar.jpg';
-import { createField, Input } from '../common/FormControls/FormControls';
-import { useDispatch, useSelector } from 'react-redux';
+
 import {
   sendMessage,
   startMessagesListening,
   stopMessagesListening
 } from '../../redux/chatReducer';
 import { AppStateType } from '../../redux/redux-store';
+import { Preloader } from '../common';
 
 type ChatMessageType = {
   message: string;
@@ -21,7 +21,9 @@ type ChatMessageType = {
 };
 
 const Chat: React.FC = () => {
+  const status = useSelector((state: AppStateType) => state.chat.status);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(startMessagesListening());
     return () => {
@@ -31,10 +33,14 @@ const Chat: React.FC = () => {
 
   return (
     <>
-      <div style={{ maxHeight: 800, overflowY: 'auto' }}>
-        <Messages />
-      </div>
-      <AddMessagesReduxForm />
+      {status === 'ready' ? (
+        <>
+          <Messages />
+          <AddMessagesReduxForm />
+        </>
+      ) : (
+        <Preloader />
+      )}
     </>
   );
 };
@@ -43,11 +49,35 @@ export default Chat;
 
 const Messages: React.FC<{}> = () => {
   const messages = useSelector((state: AppStateType) => state.chat.messages);
+  const autoScrollRef = useRef<HTMLDivElement>(null);
+  const [isAutoScroll, setIsAutoScroll] = useState(false);
+
+  useEffect(() => {
+    if (isAutoScroll) {
+      autoScrollRef.current?.scrollIntoView({ behavior: 'auto' });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
+  const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const element = e.currentTarget;
+    if (
+      Math.abs(
+        element.scrollHeight - element.scrollTop - element.clientHeight
+      ) < 30
+    ) {
+      setIsAutoScroll(true);
+    } else {
+      setIsAutoScroll(false);
+    }
+  };
+
   return (
-    <div>
+    <div style={{ maxHeight: 800, overflowY: 'auto' }} onScroll={scrollHandler}>
       {messages.map((m, index) => {
         return <Message message={m} key={index} />;
       })}
+      <div ref={autoScrollRef}></div>
     </div>
   );
 };
@@ -55,8 +85,6 @@ const Messages: React.FC<{}> = () => {
 const AddMessagesForm: React.FC<{}> = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState('');
-  // const [socketStatus, setSocketStatus] =
-  //   useState<'pending' | 'ready'>('pending');
 
   const handleSubmit = () => {
     if (!message.trim()) {
@@ -74,16 +102,19 @@ const AddMessagesForm: React.FC<{}> = () => {
         justifyContent: 'center'
       }}
     >
-      {createField('Enter message', 'message', [], Input, {
-        type: 'text',
-        className: s.addChatMessageInput,
-        onChange: (e: {
+      <Input
+        required
+        placeholder='Enter message..'
+        type='text'
+        size='large'
+        value={message}
+        onChange={(e: {
           currentTarget: { value: React.SetStateAction<string> };
-        }) => setMessage(e.currentTarget.value),
-        value: message
-      })}
+        }) => {
+          setMessage(e.currentTarget.value);
+        }}
+      />
       <Button
-        // disabled={ws !== null && socketStatus !== 'ready'}
         onClick={handleSubmit}
         type='default'
         size='large'
@@ -95,44 +126,46 @@ const AddMessagesForm: React.FC<{}> = () => {
   );
 };
 
-const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: 15
-      }}
-    >
+const Message: React.FC<{ message: ChatMessageType }> = React.memo(
+  ({ message }) => {
+    return (
       <div
         style={{
-          marginRight: '15px'
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          marginTop: 15
         }}
       >
-        <img
-          style={{ borderRadius: '50%' }}
-          src={message.photo ? message.photo : noava}
-          width={50}
-          alt='avatar'
-        />
-      </div>
-      <div>
-        <b>
-          <span>{message.userName}</span>
-        </b>
-        <p
+        <div
           style={{
-            padding: '5px 0',
-            borderRadius: '5px'
+            marginRight: '15px'
           }}
         >
-          {message.message}
-        </p>
+          <img
+            style={{ borderRadius: '50%' }}
+            src={message.photo ? message.photo : noava}
+            width={50}
+            alt='avatar'
+          />
+        </div>
+        <div>
+          <b>
+            <span>{message.userName}</span>
+          </b>
+          <p
+            style={{
+              padding: '5px 0',
+              borderRadius: '5px'
+            }}
+          >
+            {message.message}
+          </p>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 const AddMessagesReduxForm = reduxForm<any, any>({
   form: 'chatForm'
